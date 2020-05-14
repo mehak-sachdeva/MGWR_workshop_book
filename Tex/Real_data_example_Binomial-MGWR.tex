@@ -1,0 +1,663 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Real\_data\_example\_Binomial-MGWR}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \textbf{Notebook Outline:}
+
+\begin{itemize}
+\tightlist
+\item
+  Section \ref{set-up-cells}
+\item
+  Section \ref{clearwater-landslides-dataset}
+\item
+  Section \ref{univariate-example}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Section \ref{bandwidth-check}
+  \item
+    Section \ref{parameter-check}
+  \end{itemize}
+\item
+  Section \ref{multivariate-example}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Section \ref{bandwidths-check}
+  \item
+    Section \ref{aic-aicc-bic-check}
+  \end{itemize}
+\item
+  Section \ref{global-model-check}
+\end{itemize}
+
+    \subsubsection{Set up Cells}\label{set-up-cells}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C:/Users/msachde1/Downloads/Research/Development/mgwr}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k+kn}{from} \PY{n+nn}{mgwr}\PY{n+nn}{.}\PY{n+nn}{gwr} \PY{k}{import} \PY{n}{GWR}
+        \PY{k+kn}{from} \PY{n+nn}{spglm}\PY{n+nn}{.}\PY{n+nn}{family} \PY{k}{import} \PY{n}{Gaussian}\PY{p}{,} \PY{n}{Binomial}\PY{p}{,} \PY{n}{Poisson}
+        \PY{k+kn}{from} \PY{n+nn}{mgwr}\PY{n+nn}{.}\PY{n+nn}{gwr} \PY{k}{import} \PY{n}{MGWR}
+        \PY{k+kn}{from} \PY{n+nn}{mgwr}\PY{n+nn}{.}\PY{n+nn}{sel\PYZus{}bw} \PY{k}{import} \PY{n}{Sel\PYZus{}BW}
+        \PY{k+kn}{import} \PY{n+nn}{multiprocessing} \PY{k}{as} \PY{n+nn}{mp}
+        \PY{n}{pool} \PY{o}{=} \PY{n}{mp}\PY{o}{.}\PY{n}{Pool}\PY{p}{(}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{linalg}
+        \PY{k+kn}{import} \PY{n+nn}{numpy}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{as} \PY{n+nn}{la}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{sparse} \PY{k}{as} \PY{n}{sp}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{sparse} \PY{k}{import} \PY{n}{linalg} \PY{k}{as} \PY{n}{spla}
+        \PY{k+kn}{from} \PY{n+nn}{spreg}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k}{import} \PY{n}{spdot}\PY{p}{,} \PY{n}{spmultiply}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{special}
+        \PY{k+kn}{import} \PY{n+nn}{libpysal} \PY{k}{as} \PY{n+nn}{ps}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{copy} \PY{k}{import} \PY{n}{deepcopy}
+        \PY{k+kn}{import} \PY{n+nn}{copy}
+        \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{namedtuple}
+        \PY{k+kn}{import} \PY{n+nn}{spglm}
+\end{Verbatim}
+
+    \subsubsection{Clearwater Landslides
+Dataset}\label{clearwater-landslides-dataset}
+
+    \paragraph{Clearwater data - downloaded from link:
+https://sgsup.asu.edu/sparc/multiscale-gwr}\label{clearwater-data---downloaded-from-link-httpssgsup.asu.edusparcmultiscale-gwr}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{data\PYZus{}p} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C:/Users/msachde1/Downloads/logistic\PYZus{}mgwr\PYZus{}data/landslides.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{data\PYZus{}p}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    UserID            X          Y      Elev     Slope  SinAspct  CosAspct  \textbackslash{}
+        0       1  616168.5625  5201076.5  1450.475  27.44172  0.409126 -0.912478   
+        1       2  624923.8125  5201008.5  1567.476  21.88343 -0.919245 -0.393685   
+        2       3  615672.0000  5199187.5  1515.065  38.81030 -0.535024 -0.844837   
+        3       4  615209.3125  5199112.0  1459.827  26.71631 -0.828548 -0.559918   
+        4       5  616354.6875  5198945.5  1379.442  27.55271 -0.872281 -0.489005   
+        
+           AbsSouth  Landslid  DistStrm  
+        0   24.1499         1     8.506  
+        1   66.8160         1    15.561  
+        2   32.3455         1    41.238  
+        3   55.9499         1    17.539  
+        4   60.7248         1    35.023  
+\end{Verbatim}
+            
+    \subsubsection{Univariate example}\label{univariate-example}
+
+    \paragraph{GWR Binomial model with independent variable, x =
+slope}\label{gwr-binomial-model-with-independent-variable-x-slope}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{coords} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{data\PYZus{}p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Landslid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} 
+        \PY{n}{elev} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Elev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{slope} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{SinAspct} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SinAspct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{CosAspct} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CosAspct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{elev}\PY{p}{,}\PY{n}{slope}\PY{p}{,}\PY{n}{SinAspct}\PY{p}{,}\PY{n}{CosAspct}\PY{p}{]}\PY{p}{)}
+        \PY{n}{x} \PY{o}{=} \PY{n}{CosAspct}
+        
+        \PY{n}{X\PYZus{}std} \PY{o}{=} \PY{p}{(}\PY{n}{X}\PY{o}{\PYZhy{}}\PY{n}{X}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{X}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{x\PYZus{}std} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{x}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{y\PYZus{}std} \PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{y}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{bw}\PY{o}{=}\PY{n}{Sel\PYZus{}BW}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{x\PYZus{}std}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Binomial}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{p}{)}
+        \PY{n}{gwr\PYZus{}mod}\PY{o}{=}\PY{n}{GWR}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{x\PYZus{}std}\PY{p}{,}\PY{n}{bw}\PY{o}{=}\PY{n}{bw}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Binomial}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+        \PY{n}{bw}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 108.0
+\end{Verbatim}
+            
+    \subparagraph{Running the function with family =
+Binomial()}\label{running-the-function-with-family-binomial}
+
+    \paragraph{Bandwidths check}\label{bandwidths-check}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{selector} \PY{o}{=} \PY{n}{Sel\PYZus{}BW}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{x\PYZus{}std}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Binomial}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{multi}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{selector}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Current iteration: 1 ,SOC: 0.0752521
+Bandwidths: 108.0
+Current iteration: 2 ,SOC: 0.0213201
+Bandwidths: 184.0
+Current iteration: 3 ,SOC: 5.8e-05
+Bandwidths: 184.0
+Current iteration: 4 ,SOC: 1e-06
+Bandwidths: 184.0
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} array([184.])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{mgwr\PYZus{}mod} \PY{o}{=} \PY{n}{MGWR}\PY{p}{(}\PY{n}{coords}\PY{p}{,} \PY{n}{y}\PY{p}{,}\PY{n}{x\PYZus{}std}\PY{p}{,}\PY{n}{selector}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Binomial}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+HBox(children=(IntProgress(value=0, description='Inference', max=1), HTML(value='')))
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+    \end{Verbatim}
+
+    \paragraph{Parameter check}\label{parameter-check}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{mgwr\PYZus{}mod}\PY{o}{.}\PY{n}{bic}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 325.23949237389036
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{gwr\PYZus{}mod}\PY{o}{.}\PY{n}{bic}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 338.19722049287054
+\end{Verbatim}
+            
+    \subsubsection{Multivariate example}\label{multivariate-example}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{bw}\PY{o}{=}\PY{n}{Sel\PYZus{}BW}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{X\PYZus{}std}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Binomial}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{p}{)}
+         \PY{n}{gwr\PYZus{}mod}\PY{o}{=}\PY{n}{GWR}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{X\PYZus{}std}\PY{p}{,}\PY{n}{bw}\PY{o}{=}\PY{n}{bw}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Binomial}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{bw}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 121.0
+\end{Verbatim}
+            
+    \paragraph{Bandwidth check}\label{bandwidth-check}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{selector} \PY{o}{=} \PY{n}{Sel\PYZus{}BW}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{X\PYZus{}std}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Binomial}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{multi}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{selector}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Current iteration: 1 ,SOC: 0.116124
+Bandwidths: 43.0, 62.0, 191.0, 100.0, 108.0
+Current iteration: 2 ,SOC: 0.0266811
+Bandwidths: 43.0, 106.0, 210.0, 100.0, 184.0
+Current iteration: 3 ,SOC: 0.0008147
+Bandwidths: 43.0, 106.0, 210.0, 100.0, 184.0
+Current iteration: 4 ,SOC: 5.28e-05
+Bandwidths: 43.0, 106.0, 210.0, 100.0, 184.0
+Current iteration: 5 ,SOC: 5.3e-06
+Bandwidths: 43.0, 106.0, 210.0, 100.0, 184.0
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} array([ 43., 106., 210., 100., 184.])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{mgwr\PYZus{}mod} \PY{o}{=} \PY{n}{MGWR}\PY{p}{(}\PY{n}{coords}\PY{p}{,} \PY{n}{y}\PY{p}{,}\PY{n}{X\PYZus{}std}\PY{p}{,}\PY{n}{selector}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Binomial}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+HBox(children=(IntProgress(value=0, description='Inference', max=1), HTML(value='')))
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+    \end{Verbatim}
+
+    \paragraph{AIC, AICc, BIC check}\label{aic-aicc-bic-check}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{gwr\PYZus{}mod}\PY{o}{.}\PY{n}{aicc}\PY{p}{,} \PY{n}{mgwr\PYZus{}mod}\PY{o}{.}\PY{n}{aicc}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} (264.9819711678866, 251.85376815296377)
+\end{Verbatim}
+            
+    \subsubsection{Global model check}\label{global-model-check}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{selector}\PY{o}{=}\PY{n}{Sel\PYZus{}BW}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{X\PYZus{}std}\PY{p}{,}\PY{n}{multi}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Binomial}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{selector}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{multi\PYZus{}bw\PYZus{}min}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{239}\PY{p}{,}\PY{l+m+mi}{239}\PY{p}{,}\PY{l+m+mi}{239}\PY{p}{,}\PY{l+m+mi}{239}\PY{p}{,}\PY{l+m+mi}{239}\PY{p}{]}\PY{p}{,} \PY{n}{multi\PYZus{}bw\PYZus{}max}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{239}\PY{p}{,}\PY{l+m+mi}{239}\PY{p}{,}\PY{l+m+mi}{239}\PY{p}{,}\PY{l+m+mi}{239}\PY{p}{,}\PY{l+m+mi}{239}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Current iteration: 1 ,SOC: 0.6120513
+Bandwidths: 239.0, 239.0, 239.0, 239.0, 239.0
+Current iteration: 2 ,SOC: 0.0594775
+Bandwidths: 239.0, 239.0, 239.0, 239.0, 239.0
+Current iteration: 3 ,SOC: 0.0025897
+Bandwidths: 239.0, 239.0, 239.0, 239.0, 239.0
+Current iteration: 4 ,SOC: 0.0001289
+Bandwidths: 239.0, 239.0, 239.0, 239.0, 239.0
+Current iteration: 5 ,SOC: 1.17e-05
+Bandwidths: 239.0, 239.0, 239.0, 239.0, 239.0
+Current iteration: 6 ,SOC: 1.2e-06
+Bandwidths: 239.0, 239.0, 239.0, 239.0, 239.0
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} array([239., 239., 239., 239., 239.])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{mgwr\PYZus{}mod} \PY{o}{=} \PY{n}{MGWR}\PY{p}{(}\PY{n}{coords}\PY{p}{,} \PY{n}{y}\PY{p}{,}\PY{n}{X\PYZus{}std}\PY{p}{,}\PY{n}{selector}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Binomial}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+HBox(children=(IntProgress(value=0, description='Inference', max=1), HTML(value='')))
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{gwr\PYZus{}mod}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+===========================================================================
+Model type                                                         Binomial
+Number of observations:                                                 239
+Number of covariates:                                                     5
+
+Global Regression Results
+---------------------------------------------------------------------------
+Deviance:                                                           266.246
+Log-likelihood:                                                    -133.123
+AIC:                                                                276.246
+AICc:                                                               276.504
+BIC:                                                              -1015.246
+Percent deviance explained:                                           0.182
+Adj. percent deviance explained:                                      0.168
+
+Variable                              Est.         SE  t(Est/SE)    p-value
+------------------------------- ---------- ---------- ---------- ----------
+X0                                   0.389      0.150      2.591      0.010
+X1                                  -0.784      0.166     -4.715      0.000
+X2                                   0.654      0.168      3.881      0.000
+X3                                   0.039      0.149      0.264      0.792
+X4                                  -0.371      0.156     -2.381      0.017
+
+Geographically Weighted Regression (GWR) Results
+---------------------------------------------------------------------------
+Spatial kernel:                                           Adaptive bisquare
+Bandwidth used:                                                     121.000
+
+Diagnostic information
+---------------------------------------------------------------------------
+Effective number of parameters (trace(S)):                           23.263
+Degree of freedom (n - trace(S)):                                   215.737
+Log-likelihood:                                                    -106.599
+AIC:                                                                259.725
+AICc:                                                               264.982
+BIC:                                                                340.598
+Percent deviance explained:                                         0.345
+Adjusted percent deviance explained:                                0.274
+Adj. alpha (95\%):                                                     0.011
+Adj. critical t value (95\%):                                          2.571
+
+Summary Statistics For GWR Parameter Estimates
+---------------------------------------------------------------------------
+Variable                   Mean        STD        Min     Median        Max
+-------------------- ---------- ---------- ---------- ---------- ----------
+X0                        0.459      0.360     -0.360      0.436      1.232
+X1                       -0.824      0.479     -2.128     -0.729     -0.095
+X2                        0.567      0.390     -0.030      0.600      1.328
+X3                        0.103      0.270     -0.473      0.183      0.565
+X4                       -0.331      0.247     -1.118     -0.287      0.096
+===========================================================================
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{mgwr\PYZus{}mod}\PY{o}{.}\PY{n}{params}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} array([ 0.19936242, -0.3251776 ,  0.32069312,  0.04295657, -0.20408904])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{mgwr\PYZus{}mod}\PY{o}{.}\PY{n}{bic}\PY{p}{,} \PY{n}{gwr\PYZus{}mod}\PY{o}{.}\PY{n}{bic}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} (303.9521120546862, 340.5982180538755)
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

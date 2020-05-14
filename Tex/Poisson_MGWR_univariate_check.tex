@@ -1,0 +1,613 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Poisson\_MGWR\_univariate\_check}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \textbf{Notebook Outline:}
+
+\begin{itemize}
+\tightlist
+\item
+  Section \ref{set-up-cells}
+\item
+  Section \ref{fundamental-equations-for-poisson-mgwr}
+\item
+  Section \ref{example-dataset}
+\item
+  Section \ref{helper-functions}
+\item
+  Section \ref{univariate-example}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Section \ref{parameter-check}
+  \item
+    Section \ref{bandwidths-check}
+  \end{itemize}
+\end{itemize}
+
+    \subsubsection{Set up Cells}\label{set-up-cells}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C:/Users/msachde1/Downloads/Research/Development/mgwr}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k+kn}{from} \PY{n+nn}{mgwr}\PY{n+nn}{.}\PY{n+nn}{gwr} \PY{k}{import} \PY{n}{GWR}
+        \PY{k+kn}{from} \PY{n+nn}{spglm}\PY{n+nn}{.}\PY{n+nn}{family} \PY{k}{import} \PY{n}{Gaussian}\PY{p}{,} \PY{n}{Binomial}\PY{p}{,} \PY{n}{Poisson}
+        \PY{k+kn}{from} \PY{n+nn}{mgwr}\PY{n+nn}{.}\PY{n+nn}{gwr} \PY{k}{import} \PY{n}{MGWR}
+        \PY{k+kn}{from} \PY{n+nn}{mgwr}\PY{n+nn}{.}\PY{n+nn}{sel\PYZus{}bw} \PY{k}{import} \PY{n}{Sel\PYZus{}BW}
+        \PY{k+kn}{import} \PY{n+nn}{multiprocessing} \PY{k}{as} \PY{n+nn}{mp}
+        \PY{n}{pool} \PY{o}{=} \PY{n}{mp}\PY{o}{.}\PY{n}{Pool}\PY{p}{(}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{linalg}
+        \PY{k+kn}{import} \PY{n+nn}{numpy}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{as} \PY{n+nn}{la}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{sparse} \PY{k}{as} \PY{n}{sp}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{sparse} \PY{k}{import} \PY{n}{linalg} \PY{k}{as} \PY{n}{spla}
+        \PY{k+kn}{from} \PY{n+nn}{spreg}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k}{import} \PY{n}{spdot}\PY{p}{,} \PY{n}{spmultiply}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{special}
+        \PY{k+kn}{import} \PY{n+nn}{libpysal} \PY{k}{as} \PY{n+nn}{ps}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{copy} \PY{k}{import} \PY{n}{deepcopy}
+        \PY{k+kn}{import} \PY{n+nn}{copy}
+        \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{namedtuple}
+        \PY{k+kn}{import} \PY{n+nn}{spglm}
+\end{Verbatim}
+
+    \subsubsection{Fundamental equations for Poisson
+MGWR}\label{fundamental-equations-for-poisson-mgwr}
+
+    \begin{align}
+y = Poisson[E_i exp ({\sum} {\beta} & _k x _{k,i})]   - (1) \\
+E_i = Offset   - (2) \\
+\hat{y} = predicted(y)   - (3) \\
+z = ({\sum} {\beta} & _k x _{k,i}) + ((y - \hat{y})/\hat{y})   - (4) \\
+\end{align}
+
+    \subsubsection{Example Dataset}\label{example-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{data\PYZus{}p} \PY{o}{=} \PY{n}{ps}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{ps}\PY{o}{.}\PY{n}{examples}\PY{o}{.}\PY{n}{get\PYZus{}path}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tokyomortality.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{coords} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{o}{.}\PY{n}{by\PYZus{}col}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}CENTROID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{n}{data\PYZus{}p}\PY{o}{.}\PY{n}{by\PYZus{}col}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y\PYZus{}CENTROID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{off} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{o}{.}\PY{n}{by\PYZus{}col}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eb2564}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{o}{.}\PY{n}{by\PYZus{}col}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{db2564}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} 
+        \PY{n}{occ} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{o}{.}\PY{n}{by\PYZus{}col}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OCC\PYZus{}TEC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{own} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{o}{.}\PY{n}{by\PYZus{}col}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OWNH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pop} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{o}{.}\PY{n}{by\PYZus{}col}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POP65}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{unemp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}p}\PY{o}{.}\PY{n}{by\PYZus{}col}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UNEMP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{occ}\PY{p}{,}\PY{n}{own}\PY{p}{,}\PY{n}{pop}\PY{p}{,}\PY{n}{unemp}\PY{p}{]}\PY{p}{)}
+        \PY{n}{x} \PY{o}{=} \PY{n}{unemp}
+        
+        \PY{n}{X\PYZus{}std} \PY{o}{=} \PY{p}{(}\PY{n}{X}\PY{o}{\PYZhy{}}\PY{n}{X}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{X}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{x\PYZus{}std} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{x}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{y\PYZus{}std} \PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{y}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+    \subsubsection{Helper functions}\label{helper-functions}
+
+Hardcoded here for simplicity in the notebook workflow
+
+Please note: A separate bw\_func\_p will not be required when changes
+will be made in the repository
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bisquare}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{fixed}\PY{o}{=}\PY{k+kc}{False}
+        \PY{n}{spherical}\PY{o}{=}\PY{k+kc}{False}
+        \PY{n}{search\PYZus{}method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{golden\PYZus{}section}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AICc}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{interval}\PY{o}{=}\PY{k+kc}{None}
+        \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}06}
+        \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{200}
+        \PY{n}{X\PYZus{}glob}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{gwr\PYZus{}func}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{bw}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Gaussian}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{offset}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{GWR}\PY{p}{(}\PY{n}{coords}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{bw}\PY{p}{,} \PY{n}{family}\PY{p}{,}\PY{n}{offset}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{,}
+                       \PY{n}{fixed}\PY{o}{=}\PY{n}{fixed}\PY{p}{,} \PY{n}{constant}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                       \PY{n}{spherical}\PY{o}{=}\PY{n}{spherical}\PY{p}{,} \PY{n}{hat\PYZus{}matrix}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}
+                           \PY{n}{lite}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{pool}\PY{o}{=}\PY{n}{pool}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{bw\PYZus{}func\PYZus{}p}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+            \PY{n}{selector} \PY{o}{=} \PY{n}{Sel\PYZus{}BW}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{X}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Poisson}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{offset}\PY{o}{=}\PY{n}{off}\PY{p}{,} \PY{n}{X\PYZus{}glob}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,}
+                              \PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{,} \PY{n}{fixed}\PY{o}{=}\PY{n}{fixed}\PY{p}{,}
+                              \PY{n}{constant}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{spherical}\PY{o}{=}\PY{n}{spherical}\PY{p}{)}
+            \PY{k}{return} \PY{n}{selector}
+        
+        \PY{k}{def} \PY{n+nf}{bw\PYZus{}func}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{p}{:}
+            \PY{n}{selector} \PY{o}{=} \PY{n}{Sel\PYZus{}BW}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{X\PYZus{}glob}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,}
+                              \PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{,} \PY{n}{fixed}\PY{o}{=}\PY{n}{fixed}\PY{p}{,}
+                              \PY{n}{constant}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{spherical}\PY{o}{=}\PY{n}{spherical}\PY{p}{)}
+            \PY{k}{return} \PY{n}{selector}
+        
+        \PY{k}{def} \PY{n+nf}{sel\PYZus{}func}\PY{p}{(}\PY{n}{bw\PYZus{}func}\PY{p}{,} \PY{n}{bw\PYZus{}min}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{bw\PYZus{}max}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{bw\PYZus{}func}\PY{o}{.}\PY{n}{search}\PY{p}{(}
+                \PY{n}{search\PYZus{}method}\PY{o}{=}\PY{n}{search\PYZus{}method}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{n}{criterion}\PY{p}{,}
+                \PY{n}{bw\PYZus{}min}\PY{o}{=}\PY{n}{bw\PYZus{}min}\PY{p}{,} \PY{n}{bw\PYZus{}max}\PY{o}{=}\PY{n}{bw\PYZus{}max}\PY{p}{,} \PY{n}{interval}\PY{o}{=}\PY{n}{interval}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{n}{tol}\PY{p}{,}
+                \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{n}{max\PYZus{}iter}\PY{p}{,} \PY{n}{pool}\PY{o}{=}\PY{n}{pool}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \subsubsection{Univariate example}\label{univariate-example}
+
+\paragraph{GWPR model with independent variable, x =
+unemployment}\label{gwpr-model-with-independent-variable-x-unemployment}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{bw\PYZus{}gwpr}\PY{o}{=}\PY{n}{Sel\PYZus{}BW}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y\PYZus{}std}\PY{p}{,}\PY{n}{x\PYZus{}std}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Poisson}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{offset}\PY{o}{=}\PY{n}{off}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{gwpr\PYZus{}model}\PY{o}{=}\PY{n}{GWR}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y\PYZus{}std}\PY{p}{,}\PY{n}{x\PYZus{}std}\PY{p}{,}\PY{n}{bw}\PY{o}{=}\PY{n}{bw\PYZus{}gwpr}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Poisson}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{offset}\PY{o}{=}\PY{n}{off}\PY{p}{,}\PY{n}{constant}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \paragraph{MGWR Poisson loop with one independent variable, x =
+unemployment}\label{mgwr-poisson-loop-with-one-independent-variable-x-unemployment}
+
+    \subparagraph{Edited multi\_bw function - original function in
+https://github.com/pysal/mgwr/blob/master/mgwr/search.py\#L167}\label{edited-multi_bw-function---original-function-in-httpsgithub.compysalmgwrblobmastermgwrsearch.pyl167}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{multi\PYZus{}bw}\PY{p}{(}\PY{n}{init}\PY{p}{,}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{k}\PY{p}{,} \PY{n}{family}\PY{o}{=}\PY{n}{Gaussian}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{offset}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}06}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{multi\PYZus{}bw\PYZus{}min}\PY{o}{=}\PY{p}{[}\PY{k+kc}{None}\PY{p}{]}\PY{p}{,} \PY{n}{multi\PYZus{}bw\PYZus{}max}\PY{o}{=}\PY{p}{[}\PY{k+kc}{None}\PY{p}{]}\PY{p}{,}\PY{n}{rss\PYZus{}score}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{bws\PYZus{}same\PYZus{}times}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}
+                             \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+            
+            \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{family}\PY{p}{,}\PY{n}{spglm}\PY{o}{.}\PY{n}{family}\PY{o}{.}\PY{n}{Poisson}\PY{p}{)}\PY{p}{:}
+                \PY{n}{bw} \PY{o}{=} \PY{n}{sel\PYZus{}func}\PY{p}{(}\PY{n}{bw\PYZus{}func\PYZus{}p}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+                \PY{n}{optim\PYZus{}model}\PY{o}{=}\PY{n}{gwr\PYZus{}func}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{bw}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{Poisson}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{offset}\PY{o}{=}\PY{n}{offset}\PY{p}{)}
+                \PY{n}{err} \PY{o}{=} \PY{n}{optim\PYZus{}model}\PY{o}{.}\PY{n}{resid\PYZus{}response}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                \PY{n}{param} \PY{o}{=} \PY{n}{optim\PYZus{}model}\PY{o}{.}\PY{n}{params}
+                \PY{c+c1}{\PYZsh{}This change for the Poisson model follows from equation (1) above}
+                \PY{n}{XB} \PY{o}{=} \PY{n}{offset}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{param}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{)}
+                
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{bw}\PY{o}{=}\PY{n}{sel\PYZus{}func}\PY{p}{(}\PY{n}{bw\PYZus{}func}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+                \PY{n}{optim\PYZus{}model}\PY{o}{=}\PY{n}{gwr\PYZus{}func}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{bw}\PY{p}{)}
+                \PY{n}{err} \PY{o}{=} \PY{n}{optim\PYZus{}model}\PY{o}{.}\PY{n}{resid\PYZus{}response}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                \PY{n}{param} \PY{o}{=} \PY{n}{optim\PYZus{}model}\PY{o}{.}\PY{n}{params}
+                \PY{n}{XB} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{param}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+                
+            \PY{n}{bw\PYZus{}gwr} \PY{o}{=} \PY{n}{bw}
+            \PY{n}{XB}\PY{o}{=}\PY{n}{XB}
+            
+            \PY{k}{if} \PY{n}{rss\PYZus{}score}\PY{p}{:}
+                \PY{n}{rss} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{err}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{iters} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{delta} \PY{o}{=} \PY{l+m+mf}{1e6}
+            \PY{n}{BWs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{bw\PYZus{}stable\PYZus{}counter} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+            \PY{n}{bws} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+        
+            \PY{k}{try}\PY{p}{:}
+                \PY{k+kn}{from} \PY{n+nn}{tqdm}\PY{n+nn}{.}\PY{n+nn}{auto} \PY{k}{import} \PY{n}{tqdm}  \PY{c+c1}{\PYZsh{}if they have it, let users have a progress bar}
+            \PY{k}{except} \PY{n+ne}{ImportError}\PY{p}{:}
+        
+                \PY{k}{def} \PY{n+nf}{tqdm}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{desc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{}otherwise, just passthrough the range}
+                    \PY{k}{return} \PY{n}{x}
+        
+            \PY{k}{for} \PY{n}{iters} \PY{o+ow}{in} \PY{n}{tqdm}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{max\PYZus{}iter} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{desc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Backfitting}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{n}{new\PYZus{}XB} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                \PY{n}{params} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{temp\PYZus{}y} \PY{o}{=} \PY{n}{XB}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{temp\PYZus{}y} \PY{o}{=} \PY{n}{temp\PYZus{}y} \PY{o}{+} \PY{n}{err}
+                    \PY{n}{temp\PYZus{}X} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                    
+                    \PY{c+c1}{\PYZsh{}The step below will not be necessary once the bw\PYZus{}func is changed in the repo to accept family and offset as attributes}
+                    \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{family}\PY{p}{,}\PY{n}{spglm}\PY{o}{.}\PY{n}{family}\PY{o}{.}\PY{n}{Poisson}\PY{p}{)}\PY{p}{:}
+        
+                        \PY{n}{bw\PYZus{}class} \PY{o}{=} \PY{n}{bw\PYZus{}func\PYZus{}p}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{temp\PYZus{}y}\PY{p}{,} \PY{n}{temp\PYZus{}X}\PY{p}{)}
+                        
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n}{bw\PYZus{}class} \PY{o}{=} \PY{n}{bw\PYZus{}func}\PY{p}{(}\PY{n}{coords}\PY{p}{,}\PY{n}{temp\PYZus{}y}\PY{p}{,} \PY{n}{temp\PYZus{}X}\PY{p}{)}
+        
+        
+                    \PY{k}{if} \PY{n}{np}\PY{o}{.}\PY{n}{all}\PY{p}{(}\PY{n}{bw\PYZus{}stable\PYZus{}counter} \PY{o}{==} \PY{n}{bws\PYZus{}same\PYZus{}times}\PY{p}{)}\PY{p}{:}
+                        \PY{c+c1}{\PYZsh{}If in backfitting, all bws not changing in bws\PYZus{}same\PYZus{}times (default 3) iterations}
+                        \PY{n}{bw} \PY{o}{=} \PY{n}{bws}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n}{bw} \PY{o}{=} \PY{n}{sel\PYZus{}func}\PY{p}{(}\PY{n}{bw\PYZus{}class}\PY{p}{,} \PY{n}{multi\PYZus{}bw\PYZus{}min}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{n}{multi\PYZus{}bw\PYZus{}max}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                        \PY{k}{if} \PY{n}{bw} \PY{o}{==} \PY{n}{bws}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{:}
+                            \PY{n}{bw\PYZus{}stable\PYZus{}counter}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                        \PY{k}{else}\PY{p}{:}
+                            \PY{n}{bw\PYZus{}stable\PYZus{}counter} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+        
+                    \PY{c+c1}{\PYZsh{}Changed gwr\PYZus{}func to accept family and offset as attributes}
+                    \PY{n}{optim\PYZus{}model} \PY{o}{=} \PY{n}{gwr\PYZus{}func}\PY{p}{(}\PY{n}{temp\PYZus{}y}\PY{p}{,} \PY{n}{temp\PYZus{}X}\PY{p}{,} \PY{n}{bw}\PY{p}{,}\PY{n}{family}\PY{p}{,}\PY{n}{offset}\PY{p}{)}
+                    \PY{n}{err} \PY{o}{=} \PY{n}{optim\PYZus{}model}\PY{o}{.}\PY{n}{resid\PYZus{}response}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{param} \PY{o}{=} \PY{n}{optim\PYZus{}model}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{)}\PY{p}{)}
+                    \PY{n}{new\PYZus{}XB}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{optim\PYZus{}model}\PY{o}{.}\PY{n}{predy}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                    \PY{n}{params}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{param}
+                    \PY{n}{bws}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{bw}
+        
+                \PY{n}{num} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{new\PYZus{}XB} \PY{o}{\PYZhy{}} \PY{n}{XB}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{/} \PY{n}{n}
+                \PY{n}{den} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{new\PYZus{}XB}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n}{score} \PY{o}{=} \PY{p}{(}\PY{n}{num} \PY{o}{/} \PY{n}{den}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}
+                \PY{n}{XB} \PY{o}{=} \PY{n}{new\PYZus{}XB}
+        
+                \PY{k}{if} \PY{n}{rss\PYZus{}score}\PY{p}{:}
+                    \PY{n}{predy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{params}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{new\PYZus{}rss} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{predy}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+                    \PY{n}{score} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{p}{(}\PY{n}{new\PYZus{}rss} \PY{o}{\PYZhy{}} \PY{n}{rss}\PY{p}{)} \PY{o}{/} \PY{n}{new\PYZus{}rss}\PY{p}{)}
+                    \PY{n}{rss} \PY{o}{=} \PY{n}{new\PYZus{}rss}
+                \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{score}\PY{p}{)}\PY{p}{)}
+                \PY{n}{delta} \PY{o}{=} \PY{n}{score}
+                \PY{n}{BWs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{bws}\PY{p}{)}\PY{p}{)}
+        
+                \PY{k}{if} \PY{n}{verbose}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Current iteration:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{iters}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,SOC:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{score}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bandwidths:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{, }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{bw}\PY{p}{)} \PY{k}{for} \PY{n}{bw} \PY{o+ow}{in} \PY{n}{bws}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+                \PY{k}{if} \PY{n}{delta} \PY{o}{\PYZlt{}} \PY{n}{tol}\PY{p}{:}
+                    \PY{k}{break}
+                    
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{iters = }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{iters}\PY{p}{)}\PY{p}{)}
+            \PY{n}{opt\PYZus{}bws} \PY{o}{=} \PY{n}{BWs}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{opt\PYZus{}bws = }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{opt\PYZus{}bws}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{p}{(}\PY{n}{opt\PYZus{}bws}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{BWs}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{,} \PY{n}{params}\PY{p}{,} \PY{n}{err}\PY{p}{,} \PY{n}{bw\PYZus{}gwr}\PY{p}{)}
+\end{Verbatim}
+
+    \subparagraph{Running the function with family = Poisson() and
+offset}\label{running-the-function-with-family-poisson-and-offset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{bw\PYZus{}mgwpr} \PY{o}{=} \PY{n}{multi\PYZus{}bw}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}\PY{n}{coords}\PY{o}{=}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{y\PYZus{}std}\PY{p}{,} \PY{n}{X}\PY{o}{=}\PY{n}{x\PYZus{}std}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{262}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{family}\PY{o}{=}\PY{n}{Poisson}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{offset}\PY{o}{=}\PY{n}{off}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iters = 2
+opt\_bws = [178.]
+
+    \end{Verbatim}
+
+    \subparagraph{Running without family and offset attributes runs the
+normal MGWR
+loop}\label{running-without-family-and-offset-attributes-runs-the-normal-mgwr-loop}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{bw\PYZus{}mgwr} \PY{o}{=} \PY{n}{multi\PYZus{}bw}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}\PY{n}{coords}\PY{o}{=}\PY{n}{coords}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{y\PYZus{}std}\PY{p}{,} \PY{n}{X}\PY{o}{=}\PY{n}{x\PYZus{}std}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{262}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iters = 1
+opt\_bws = [73.]
+
+    \end{Verbatim}
+
+    \subsubsection{Parameter check}\label{parameter-check}
+
+    \paragraph{Difference in parameters from the GWPR model and MGWPR
+model}\label{difference-in-parameters-from-the-gwpr-model-and-mgwpr-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n+nb}{max}\PY{p}{(}\PY{n}{bw\PYZus{}mgwpr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{gwpr\PYZus{}model}\PY{o}{.}\PY{n}{params}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} array([1.89357983e-05])
+\end{Verbatim}
+            
+    The parameters are not identical but the maximum difference in the
+parameters is to the order of 1e-05
+
+    \subsubsection{Bandwidths check}\label{bandwidths-check}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{bw\PYZus{}gwpr}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 178.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{bw\PYZus{}mgwpr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} array([178.])
+\end{Verbatim}
+            
+    Bandwidths from both models is the same
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

@@ -13116,7 +13116,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1><center> Generalized Modeling and Predictions in Multiscale Geographically Weighted Regression <center></h1>
+<h1><center> Multiscale Geographically Weighted Regression<br><br>UCGIS Symposium Workshop - 2020 <center></h1>
 
 </div>
 </div>
@@ -13124,37 +13124,41 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<center> Mehak Sachdeva </center>
+<center> Spatial Analysis Research Center </center>
+<center> School of Geographical Sciences and Urban Planning </center>
+<center> Arizona State University </center><br>
 
+
+<center> Presented on 6/3/2020 - UCGIS Symposium Workshop </center>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Proposal-Abstract:">Proposal Abstract:<a class="anchor-link" href="#Proposal-Abstract:">&#182;</a></h3><p align="justify"> A recent addition to the local statistical models in PySAL is the implementation of Multiscale Geographically Weighted Regression (MGWR) model, a multiscale extension to the widely used approach for modeling process spatial heterogeneity - Geographically Weighted Regression (GWR). GWR is a local spatial multivariate statistical modeling technique embedded within the regression framework that is calibrated and estimates covariate parameters at each location using borrowed data from neighboring observations. The extent of neighboring observations used for calibration is interpreted as the indicator of scale for the spatial processes and is assumed to be constant across covariates in GWR. MGWR, using a back-fitting algorithm relaxes the assumption that all processes being modeled operate at the same spatial scale and estimates a unique indicator of scale for each process.<br>
-
-The GWR model in PySAL can currently estimate Gaussian, Poisson and Logistic models though the MGWR model is currently limited to only Gaussian models. This project aims to expand the MGWR model to nonlinear local spatial regression modeling techniques where the response outcomes may be discrete (following a Poisson distribution) or binary (Logistic models). This will enable a richer and holistic local statistical modeling framework to model multi-scale process heterogeneity for the open source community. In addition, to support efficient testing for different model implementations, a simulated data generator module will be implemented to supply test datasets following unique model variable distribution needs. This will also provide a foundation for possible expansion to test other local model implementations in PySAL. GWR has been widely used as a tool for spatial prediction and has been known to be informative on the spatial processes generating the data being predicted (Harris et al., 2010). While the GWR implementation in PySAL facilitates the predictions for the dependent variable at unsampled locations, this functionality has not been implemented for MGWR yet. This project aims to also enable the prediction functionality for MGWR and solve for its growing need in the open source community (https://github.com/pysal/mgwr/issues/51). In doing so, open issues around predictions in GWR (for e.g. https://github.com/pysal/mgwr/issues/50) will also be resolved. </p>
+<h3 id="Goal">Goal<a class="anchor-link" href="#Goal">&#182;</a></h3><hr>
+<p align="justify">The overall goal of the workshop is to introduce participants to multiscale spatial modeling and engage in a discussion of the scale of geographic processes and their measurement. Multiscale Geographically Weighted Regression (MGWR) is a cutting-edge modeling technique which integrates both nomothetic and ideographic approaches in geography and allows a more nuanced interpretation of place and space. Participants will be introduced to the field of local modeling and the opportunities it presents to measure the scale at which geographic processes operate. Participants will also complete hands-on training in the use of MGWR in research, and will be encouraged to use the provided code for their own future research.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Deliverables-(Completed-and-ongoing):">Deliverables (Completed and ongoing):<a class="anchor-link" href="#Deliverables-(Completed-and-ongoing):">&#182;</a></h3><hr>
+<h3 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h3><hr>
+<p><font color=red> Topics </font><br><br></p>
 <ol>
-<li>Expansion of MGWR model to Poisson dependent variables  (<font color=blue>Completed</font>)<br><ul>
-<li><strong><a href="https://github.com/pysal/mgwr/pull/72">Final Pull Request in pysal/mgwr</a></strong> <br><br> </li>
-<li><strong><a href="http://mehak-sachdeva.github.io/MGWR_book/Html/Poisson_main">Introduction and comprehensive tests with real and simulated datasets</a></strong><br><br></li>
-</ul>
+<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Patterns-processes">Spatial Patterns and Processes</a></strong><br><br></p>
 </li>
-<li>Expansion of MGWR model to Binomial dependent variables  (<font color=red>Ongoing</font>)<br><ul>
-<li><strong><a href="http://mehak-sachdeva.github.io/MGWR_book/Html/Binomial_MGWR">Introduction to approaches attempted and comprehensive tests with real and simulated datasets</a></strong><br><br></li>
-</ul>
+<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Regression-models">Regression Models - The why and the how</a></strong><br><br></p>
 </li>
-<li>Predictions in GWR and MGWR  (<font color=red>Ongoing</font>)<br><ul>
-<li><strong><a href="https://github.com/pysal/mgwr/commits/gsoc19">All development commits through the coding period</a></strong></li>
-</ul>
+<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Methodology">Methodological Review - GWR and MGWR</a></strong><br><br></p>
+</li>
+<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Example">Hands-on Example with MGWR</a></strong><br><br></p>
+</li>
+<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Interpretation">Interpretation and Understanding Outputs</a></strong><br><br></p>
+</li>
+<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Mapping">Mapping Parameter Coefficients</a></strong><br><br></p>
 </li>
 </ol>
 
@@ -13164,16 +13168,11 @@ The GWR model in PySAL can currently estimate Gaussian, Poisson and Logistic mod
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Personal-Information">Personal Information<a class="anchor-link" href="#Personal-Information">&#182;</a></h3><hr>
-<p><strong>Sub organization information</strong>: Python Spatial Analysis Library (PySAL)<br></p>
-<p><strong>Mentors:</strong> Levi John Wolf, Wei Kang, Taylor Oshan</p>
-<p><strong>Student Information:</strong></p>
-<p><strong>Name:</strong> Mehak Sachdeva</p>
-<p><strong>Github username:</strong> mehak-sachdeva</p>
-<p><strong>Email:</strong> msachde1@asu.edu</p>
-<p><strong>Mobile:</strong> +1-857-206-9743</p>
-<p><strong>Time zone:</strong> MST – Mountain Standard Time / Mountain Time</p>
-<p><strong>GSoC Blog RSS Feed URL:</strong> <a href="https://blogs.python-gsoc.org/en/mehaksachdevas-blog/">https://blogs.python-gsoc.org/en/mehaksachdevas-blog/</a></p>
+<h3 id="Resources">Resources<a class="anchor-link" href="#Resources">&#182;</a></h3><hr>
+<p><strong>Github book resource: <a href="https://mehak-sachdeva.github.io/MGWR_workshop_book/">https://mehak-sachdeva.github.io/MGWR_workshop_book/</a></strong><br><br>
+<strong>Download the software here: <a href="https://sgsup.asu.edu/sparc/mgwr">https://sgsup.asu.edu/sparc/mgwr</a></strong> <br><br>
+<strong>Data used in the software: <a href="http://msachdeva.cartodb.com/api/v2/sql?filename=example_dataset&amp;format=csv&amp;q=SELECT+*+FROM+census_tracts_final+as+example_data">Direct download link</a></strong> <br><br>
+<strong>Python open-source package: <a href="https://github.com/pysal/mgwr">https://github.com/pysal/mgwr</a></strong> <br><br></p>
 
 </div>
 </div>
@@ -13181,20 +13180,11 @@ The GWR model in PySAL can currently estimate Gaussian, Poisson and Logistic mod
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="References:">References:<a class="anchor-link" href="#References:">&#182;</a></h3><ul>
-<li><p>Harris, P., Fotheringham, A. S., Crespo, R., &amp; Charlton, M. (2010). The Use of Geographically Weighted Regression for Spatial Prediction: An Evaluation of Models Using Simulated Data Sets. Mathematical Geosciences, 42(6), 657–680. <a href="https://doi.org/10.1007/s11004-010-9284-7">https://doi.org/10.1007/s11004-010-9284-7</a> <br><br></p>
+<h3 id="Acknowledgements">Acknowledgements<a class="anchor-link" href="#Acknowledgements">&#182;</a></h3><hr>
+<ul>
+<li><p>Professor Stewart Fotheringham and Professor Peter Kedron for immense help in building the workshop material <br><br></p>
 </li>
-<li><p>Hastie, T., &amp; Tibshirani, R. (1986). Generalized Additive Models. Statistical Science, 1(3), 297–310. <a href="https://doi.org/10.1214/ss/1177013604">https://doi.org/10.1214/ss/1177013604</a><br><br></p>
-</li>
-<li><p>Nakaya, T., Fotheringham, A. S., Brunsdon, C., &amp; Charlton, M. (2005). Geographically weighted Poisson regression for disease association mapping. Statistics in Medicine, 24(17), 2695–2717. <a href="https://doi.org/10.1002/sim.2129">https://doi.org/10.1002/sim.2129</a></p>
+<li><p>MGWR Development Team: Ziqi Li, Taylor Oshan, Stewart Fotheringham, Wei Kang, Levi Wolf, Hanchen Yu, Mehak Sachdeva, and Sarah Bardin (Spatial Analysis Research Center (SPARC),Arizona State University, Tempe, USA)</p>
 </li>
 </ul>
 

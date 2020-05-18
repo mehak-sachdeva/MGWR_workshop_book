@@ -292,135 +292,88 @@
     
     \#
 
-Generalized Modeling and Predictions in Multiscale Geographically
-Weighted Regression
+Multiscale Geographically Weighted RegressionUCGIS Symposium Workshop -
+2020
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    Mehak Sachdeva
 
-    \subsubsection{Proposal Abstract:}\label{proposal-abstract}
+Spatial Analysis Research Center
 
-A recent addition to the local statistical models in PySAL is the
-implementation of Multiscale Geographically Weighted Regression (MGWR)
-model, a multiscale extension to the widely used approach for modeling
-process spatial heterogeneity - Geographically Weighted Regression
-(GWR). GWR is a local spatial multivariate statistical modeling
-technique embedded within the regression framework that is calibrated
-and estimates covariate parameters at each location using borrowed data
-from neighboring observations. The extent of neighboring observations
-used for calibration is interpreted as the indicator of scale for the
-spatial processes and is assumed to be constant across covariates in
-GWR. MGWR, using a back-fitting algorithm relaxes the assumption that
-all processes being modeled operate at the same spatial scale and
-estimates a unique indicator of scale for each process.
+School of Geographical Sciences and Urban Planning
 
-The GWR model in PySAL can currently estimate Gaussian, Poisson and
-Logistic models though the MGWR model is currently limited to only
-Gaussian models. This project aims to expand the MGWR model to nonlinear
-local spatial regression modeling techniques where the response outcomes
-may be discrete (following a Poisson distribution) or binary (Logistic
-models). This will enable a richer and holistic local statistical
-modeling framework to model multi-scale process heterogeneity for the
-open source community. In addition, to support efficient testing for
-different model implementations, a simulated data generator module will
-be implemented to supply test datasets following unique model variable
-distribution needs. This will also provide a foundation for possible
-expansion to test other local model implementations in PySAL. GWR has
-been widely used as a tool for spatial prediction and has been known to
-be informative on the spatial processes generating the data being
-predicted (Harris et al., 2010). While the GWR implementation in PySAL
-facilitates the predictions for the dependent variable at unsampled
-locations, this functionality has not been implemented for MGWR yet.
-This project aims to also enable the prediction functionality for MGWR
-and solve for its growing need in the open source community
-(https://github.com/pysal/mgwr/issues/51). In doing so, open issues
-around predictions in GWR (for e.g.
-https://github.com/pysal/mgwr/issues/50) will also be resolved.
+Arizona State University
 
-    \subsubsection{Deliverables (Completed and
-ongoing):}\label{deliverables-completed-and-ongoing}
+Presented on 6/3/2020 - UCGIS Symposium Workshop
+
+    \subsubsection{Goal}\label{goal}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+The overall goal of the workshop is to introduce participants to
+multiscale spatial modeling and engage in a discussion of the scale of
+geographic processes and their measurement. Multiscale Geographically
+Weighted Regression (MGWR) is a cutting-edge modeling technique which
+integrates both nomothetic and ideographic approaches in geography and
+allows a more nuanced interpretation of place and space. Participants
+will be introduced to the field of local modeling and the opportunities
+it presents to measure the scale at which geographic processes operate.
+Participants will also complete hands-on training in the use of MGWR in
+research, and will be encouraged to use the provided code for their own
+future research.
+
+    \subsubsection{Table of Contents}\label{table-of-contents}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+ Topics 1.
+\textbf{\href{http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Patterns-processes}{Spatial
+Patterns and Processes}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
+\setcounter{enumi}{1}
 \item
-  Expansion of MGWR model to Poisson dependent variables (Completed)
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{\href{https://github.com/pysal/mgwr/pull/72}{Final Pull
-    Request in pysal/mgwr}} 
-  \item
-    \textbf{\href{http://mehak-sachdeva.github.io/MGWR_book/Html/Poisson_main}{Introduction
-    and comprehensive tests with real and simulated datasets}}
-  \end{itemize}
+  \textbf{\href{http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Regression-models}{Regression
+  Models - The why and the how}}
 \item
-  Expansion of MGWR model to Binomial dependent variables (Ongoing)
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{\href{http://mehak-sachdeva.github.io/MGWR_book/Html/Binomial_MGWR}{Introduction
-    to approaches attempted and comprehensive tests with real and
-    simulated datasets}}
-  \end{itemize}
+  \textbf{\href{http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Methodology}{Methodological
+  Review - GWR and MGWR}}
 \item
-  Predictions in GWR and MGWR (Ongoing)
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{\href{https://github.com/pysal/mgwr/commits/gsoc19}{All
-    development commits through the coding period}}
-  \end{itemize}
+  \textbf{\href{http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Example}{Hands-on
+  Example with MGWR}}
+\item
+  \textbf{\href{http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Interpretation}{Interpretation
+  and Understanding Outputs}}
+\item
+  \textbf{\href{http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Mapping}{Mapping
+  Parameter Coefficients}}
 \end{enumerate}
 
-    \subsubsection{Personal Information}\label{personal-information}
+    \subsubsection{Resources}\label{resources}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Sub organization information}: Python Spatial Analysis Library
-(PySAL)
+\textbf{Github book resource:
+https://mehak-sachdeva.github.io/MGWR\_workshop\_book/} \textbf{Download
+the software here: https://sgsup.asu.edu/sparc/mgwr} \textbf{Data used
+in the software:
+\href{http://msachdeva.cartodb.com/api/v2/sql?filename=example_dataset\&format=csv\&q=SELECT+*+FROM+census_tracts_final+as+example_data}{Direct
+download link}} \textbf{Python open-source package:
+https://github.com/pysal/mgwr} 
 
-\textbf{Mentors:} Levi John Wolf, Wei Kang, Taylor Oshan
+    \subsubsection{Acknowledgements}\label{acknowledgements}
 
-\textbf{Student Information:}
-
-\textbf{Name:} Mehak Sachdeva
-
-\textbf{Github username:} mehak-sachdeva
-
-\textbf{Email:} msachde1@asu.edu
-
-\textbf{Mobile:} +1-857-206-9743
-
-\textbf{Time zone:} MST -- Mountain Standard Time / Mountain Time
-
-\textbf{GSoC Blog RSS Feed URL:}
-https://blogs.python-gsoc.org/en/mehaksachdevas-blog/
-
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-    \subsubsection{References:}\label{references}
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \begin{itemize}
 \item
-  Harris, P., Fotheringham, A. S., Crespo, R., \& Charlton, M. (2010).
-  The Use of Geographically Weighted Regression for Spatial Prediction:
-  An Evaluation of Models Using Simulated Data Sets. Mathematical
-  Geosciences, 42(6), 657--680.
-  https://doi.org/10.1007/s11004-010-9284-7 
+  Professor Stewart Fotheringham and Professor Peter Kedron for immense
+  help in building the workshop material 
 \item
-  Hastie, T., \& Tibshirani, R. (1986). Generalized Additive Models.
-  Statistical Science, 1(3), 297--310.
-  https://doi.org/10.1214/ss/1177013604
-\item
-  Nakaya, T., Fotheringham, A. S., Brunsdon, C., \& Charlton, M. (2005).
-  Geographically weighted Poisson regression for disease association
-  mapping. Statistics in Medicine, 24(17), 2695--2717.
-  https://doi.org/10.1002/sim.2129
+  MGWR Development Team: Ziqi Li, Taylor Oshan, Stewart Fotheringham,
+  Wei Kang, Levi Wolf, Hanchen Yu, Mehak Sachdeva, and Sarah Bardin
+  (Spatial Analysis Research Center (SPARC),Arizona State University,
+  Tempe, USA)
 \end{itemize}
 
 

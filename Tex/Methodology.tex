@@ -149,7 +149,7 @@
     \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
     % Document parameters
     % Document title
-    \title{Regression-models}
+    \title{Methodology}
     
     
     
@@ -292,97 +292,72 @@
     
     \#
 
-Regression Models - The why and the how
+Methodological Review of GWR and MGWR
 
 \textbf{Notebook Outline:}
 
-\textbf{Regression Models} - Section \ref{introduction} -
-Section \ref{hedonic-house-price-models} -
-Section \ref{spatial-dependency-and-heterogeneity}
+\textbf{Local Regression Models} -
+Section \ref{geographically-weighted-regression-gwr} -
+Section \ref{bandwidth---indicator-of-scale} -
+Section \ref{multiscale-geographically-weighted-regression}
 
 \href{https://mehak-sachdeva.github.io/MGWR_workshop_book/}{Back to the
 main page}
 
-    \section{Introduction}\label{introduction}
+    \section{Geographically Weighted Regression
+(GWR)}\label{geographically-weighted-regression-gwr}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-Models often used to estimate relationships between processes and how
-they affect the spatial data we observe in the world are broadly
-classified under the umbrella of \textbf{regression}. Let's jump right
-into the problem we are going to work on in this workshop and understand
-the concepts of regression while working through it.
-
-    \section{Hedonic House Price Models}\label{hedonic-house-price-models}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-Since the value of the attributes of a housing unit cannot be directly
-measured, a method called the hedonic modeling is applied to a housing
-unit price such that it could be decomposed into estimated prices for
-various characteristics - structural, neighborhood and locational. A
-typical house price model can be written as:
+Since the global models provide an average coefficient estimate for each
+predictor variable across the study area, they inherently assume the
+relationships tp be constant across space. That is however, not always
+true. GWR relaxes this assumption and provides a unique coefficient
+estimate for each location and for each covariate. The GWR model is
+essentially an ensemble of OLS regressions calibrated at each individual
+location of the study area which is reflected by the \emph{(ui,vi)} in
+the equation here.
 
     
 
-    The \emph{Xs} are the \textbf{independent variables} that affect the
-dependent variable \emph{y} or \textbf{observed patterns} with the
-magnitude and direction modeled by the \emph{Betas} which are the
-measure of \textbf{processes} affecting the dependent variable. These
-are the coefficient estimates that define how much and in what direction
-these processes affect the pattern.
-
-For example, in the equation above if the beta assumes a value of + 5,
-this would be interpreted as the change in house price expected with an
-increase of living area by one unit. Consquently, if we have house price
-data for a city, we can easily understand how increase in living area
-and other such attributes of a housing unit would affect house prices in
-the region.
-
-\textbf{However, can you see the obvious limitation in using this
-equation for the data of an entire city?}
-
-    \section{Spatial Dependency and
-Heterogeneity}\label{spatial-dependency-and-heterogeneity}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-In the equation above, the betas or the measure of processes affecting
-the patterns are averages across the entire study area! This would
-suggest that an increase in living area of a housing unit would affect
-the house price of the unit by the exact same amount no matter where the
-unit is located in the city. Is that a fair assumption?
-
-\textbf{For instance, would you expect the size of a housing unit to
-have the same marginal cost in Manhattan as compared to that in Staten
-Island?}
-
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-    \#\#\#\# \textbf{Perhaps, not.}
-
-Spatial phenomenon exhibit spatial heterogeneity that is, we expect
-values to be higher in some places and lower in others. In the context
-of house prices in a city for example, housing units with the same
-structural characteristics are valued differently in different areas of
-a city. This would then imply that the same stimulus across a city such
-as an increase in living area of a housing unit, would affect the
-housing cost differently in different areas. For example, a more
-accurate map of the marginal cost of living area in New York City would
-be as below - where adding a unit square feet of space in downtown
-Manhattan would increase the housing price by a lot more than that in
-Staten Island.
+    To calibrate a regression model at each location we would technicaly
+require multiple unique data points at the same location. Since that
+kind of data is extemely hard to find, GWR gets around the problem by
+\textbf{borrowing data from geographically neighboring locations}. This
+is in accordance with \textbf{Tobler's Law} of spatial dependence. The
+number of neighboring data values used to calibrate a model is obtained
+using an optimization criterion such as AIC or cross-validation and the
+parameter is called the \textbf{bandwidth}. The bandwidth is interpreted
+as an indicator of scale at which the spatial processes have the most to
+contribute to the formation of the spatial pattern being examined.
 
     
 
-    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \section{Bandwidth - Indicator of
+Scale}\label{bandwidth---indicator-of-scale}
 
-\begin{itemize}
-\tightlist
-\item
-  \emph{Please note, the mapped estimates below are only
-  representational.}
-\end{itemize}
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    
+
+    \section{\texorpdfstring{\textbf{Multiscale} Geographically Weighted
+Regression}{Multiscale Geographically Weighted Regression}}\label{multiscale-geographically-weighted-regression}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Since different processes affect the spatial pattern we observe at
+different scales (as we saw in the human migration example above!), a
+recent multiscale extension to GWR was developed. This extension relaxes
+the assumtion that all processes operate at a single scale and allows
+the estimation of unique scales of spatial processes in a model.
+
+In the simulated example below, for example, an MGWR model will
+potentially be able to estimate an appropriate scale for each process
+depending on the amount of spatial heterogeneity in each process. MGWR
+model in effect, produces a bandwidth parameter for each spatial process
+being modeled.
+
+    
 
 
     % Add a bibliography block to the postdoc

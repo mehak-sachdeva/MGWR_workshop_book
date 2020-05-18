@@ -1,65 +1,13 @@
-
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta charset="utf-8" />
 
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="chrome=1" />
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-
-<title>Regression-models slides</title>
+<title>Methodology</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
-<!-- General and theme style sheets -->
-<link rel="stylesheet" href="reveal.js/css/reveal.css">
-<link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
 
-<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-<script>
-if( window.location.search.match( /print-pdf/gi ) ) {
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = 'reveal.js/css/print/pdf.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-}
-
-</script>
-
-<!--[if lt IE 9]>
-<script src="reveal.js/lib/js/html5shiv.js"></script>
-<![endif]-->
-
-<!-- Loading the mathjax macro -->
-<!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true,
-            processEnvironments: true
-        },
-        // Center justify equations in code and markdown cells. Elsewhere
-        // we use CSS to left justify single line equations in code cells.
-        displayAlign: 'center',
-        "HTML-CSS": {
-            styles: {'.MathJax_Display': {"margin": 0}},
-            linebreaks: { automatic: true }
-        }
-    });
-    </script>
-    <!-- End of mathjax configuration -->
-
-<!-- Get Font-awesome from cdn -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 
 <style type="text/css">
     /*!
@@ -13112,142 +13060,68 @@ ul.typeahead-list  > li > a.pull-right {
 
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
-.reveal {
-  font-size: 160%;
+body {
+  overflow: visible;
+  padding: 8px;
 }
-.reveal pre {
-  width: inherit;
-  padding: 0.4em;
-  margin: 0px;
-  font-family: monospace, sans-serif;
-  font-size: 80%;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-}
-.reveal pre code {
-  padding: 0px;
-}
-.reveal section img {
-  border: 0px solid black;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
-}
-.reveal i {
-  font-style: normal;
-  font-family: FontAwesome;
-  font-size: 2em;
-}
-.reveal .slides {
-  text-align: left;
-}
-.reveal.fade {
-  opacity: 1;
-}
-.reveal .progress {
-  position: static;
-}
-.reveal .controls .navigate-left,
-.reveal .controls .navigate-left.enabled {
-  border-right-color: #727272;
-}
-.reveal .controls .navigate-left.enabled:hover,
-.reveal .controls .navigate-left.enabled.enabled:hover {
-  border-right-color: #dfdfdf;
-}
-.reveal .controls .navigate-right,
-.reveal .controls .navigate-right.enabled {
-  border-left-color: #727272;
-}
-.reveal .controls .navigate-right.enabled:hover,
-.reveal .controls .navigate-right.enabled.enabled:hover {
-  border-left-color: #dfdfdf;
-}
-.reveal .controls .navigate-up,
-.reveal .controls .navigate-up.enabled {
-  border-bottom-color: #727272;
-}
-.reveal .controls .navigate-up.enabled:hover,
-.reveal .controls .navigate-up.enabled.enabled:hover {
-  border-bottom-color: #dfdfdf;
-}
-.reveal .controls .navigate-down,
-.reveal .controls .navigate-down.enabled {
-  border-top-color: #727272;
-}
-.reveal .controls .navigate-down.enabled:hover,
-.reveal .controls .navigate-down.enabled.enabled:hover {
-  border-top-color: #dfdfdf;
-}
-.reveal .progress span {
-  background: #727272;
-}
-div.input_area {
-  padding: 0.06em;
-}
-div.code_cell {
-  background-color: transparent;
-}
-div.prompt {
-  width: 11ex;
-  padding: 0.4em;
-  margin: 0px;
-  font-family: monospace, sans-serif;
-  font-size: 80%;
-  text-align: right;
-}
-div.output_area pre {
-  font-family: monospace, sans-serif;
-  font-size: 80%;
-}
-div.output_prompt {
-  /* 5px right shift to account for margin in parent container */
-  margin: 5px 5px 0 0;
-}
-div.text_cell.rendered .rendered_html {
-  /* The H1 height seems miscalculated, we are just hidding the scrollbar */
-  overflow-y: hidden;
-}
-a.anchor-link {
-  /* There is still an anchor, we are only hidding it */
-  display: none;
-}
-.rendered_html p {
-  text-align: inherit;
-}
-::-webkit-scrollbar
-{
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar *
-{
-  background:transparent;
-}
-::-webkit-scrollbar-thumb
-{
-  background: #727272 !important;
+
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
 }
 </style>
 
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
 <link rel="stylesheet" href="custom.css">
 
-</head>
-
-
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration --></head>
 <body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
 
-
-<div class="reveal">
-<div class="slides">
-<section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Regression-Models---The-why-and-the-how-"><center>Regression Models - The why and the how </center><a class="anchor-link" href="#Regression-Models---The-why-and-the-how-">&#182;</a></h1><p><strong>Notebook Outline:</strong></p>
-<p><strong>Regression Models</strong></p>
+<h1 id="-Methodological-Review-of-GWR-and-MGWR-"><center> Methodological Review of GWR and MGWR </center><a class="anchor-link" href="#-Methodological-Review-of-GWR-and-MGWR-">&#182;</a></h1><p><strong>Notebook Outline:</strong></p>
+<p><strong>Local Regression Models</strong></p>
 <ul>
-<li><a href="#Introduction">Introduction</a></li>
-<li><a href="#Hedonic-House-Price-Models">Hedonic House Price Models</a></li>
-<li><a href="#Spatial-Dependency-and-Heterogeneity">Spatial Dependency and Heterogeneity</a> <br><br></li>
+<li><a href="#Geographically-Weighted-Regression-(GWR">Geographically Weighted Regression (GWR)</a>)</li>
+<li><a href="#Bandwidth---Indicator-of-Scale">Bandwidth - Indicator of Scale</a></li>
+<li><a href="#Multiscale-Geographically-Weighted-Regression"><strong>Multiscale</strong> Geographically Weighted Regression (MGWR)</a> <br><br></li>
 </ul>
 <p><a href="https://mehak-sachdeva.github.io/MGWR_workshop_book/">Back to the main page</a></p>
 
@@ -13257,9 +13131,9 @@ a.anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h1><hr>
-<p>Models often used to estimate relationships between processes and how they affect the spatial data we observe in the world are broadly classified under the umbrella of <strong>regression</strong>. 
-Let's jump right into the problem we are going to work on in this workshop and understand the concepts of regression while working through it.</p>
+<h1 id="Geographically-Weighted-Regression-(GWR)">Geographically Weighted Regression (GWR)<a class="anchor-link" href="#Geographically-Weighted-Regression-(GWR)">&#182;</a></h1><hr>
+<p>Since the global models provide an average coefficient estimate for each predictor variable across the study area, they inherently assume the relationships tp be constant across space. That is however, not always true.
+GWR relaxes this assumption and provides a unique coefficient estimate for each location and for each covariate. The GWR model is essentially an ensemble of OLS regressions calibrated at each individual location of the study area which is reflected by the <em>(ui,vi)</em> in the equation here.</p>
 
 </div>
 </div>
@@ -13267,8 +13141,7 @@ Let's jump right into the problem we are going to work on in this workshop and u
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hedonic-House-Price-Models">Hedonic House Price Models<a class="anchor-link" href="#Hedonic-House-Price-Models">&#182;</a></h1><hr>
-<p>Since the value of the attributes of a housing unit cannot be directly measured, a method called the hedonic modeling is applied to a housing unit price such that it could be decomposed into estimated prices for various characteristics - structural, neighborhood and locational. A typical house price model can be written as:</p>
+<p><img src="../images/gwr.PNG"></p>
 
 </div>
 </div>
@@ -13276,7 +13149,7 @@ Let's jump right into the problem we are going to work on in this workshop and u
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../images/traditional_hedonic_model.PNG"></p>
+<p>To calibrate a regression model at each location we would technicaly require multiple unique data points at the same location. Since that kind of data is extemely hard to find, GWR gets around the problem by <strong>borrowing data from geographically neighboring locations</strong>. This is in accordance with <strong>Tobler's Law</strong> of spatial dependence. The number of neighboring data values used to calibrate a model is obtained using an optimization criterion such as AIC or cross-validation and the parameter is called the <strong>bandwidth</strong>. The bandwidth is interpreted as an indicator of scale at which the spatial processes have the most to contribute to the formation of the spatial pattern being examined.</p>
 
 </div>
 </div>
@@ -13284,9 +13157,7 @@ Let's jump right into the problem we are going to work on in this workshop and u
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The <em>Xs</em> are the <strong>independent variables</strong> that affect the dependent variable <em>y</em> or <strong>observed patterns</strong> with the magnitude and direction modeled by the <em>Betas</em> which are the measure of <strong>processes</strong> affecting the dependent variable. These are the coefficient estimates that define how much and in what direction these processes affect the pattern.</p>
-<p>For example, in the equation above if the beta assumes a value of + 5, this would be interpreted as the change in house price expected with an increase of living area by one unit. Consquently, if we have house price data for a city, we can easily understand how increase in living area and other such attributes of a housing unit would affect house prices in the region.</p>
-<p><strong>However, can you see the obvious limitation in using this equation for the data of an entire city?</strong></p>
+<p><img src="../images/data_borrowing.PNG"></p>
 
 </div>
 </div>
@@ -13294,10 +13165,15 @@ Let's jump right into the problem we are going to work on in this workshop and u
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Spatial-Dependency-and-Heterogeneity">Spatial Dependency and Heterogeneity<a class="anchor-link" href="#Spatial-Dependency-and-Heterogeneity">&#182;</a></h1><hr>
-<p>In the equation above, the betas or the measure of processes affecting the patterns are averages across the entire study area!
-This would suggest that an increase in living area of a housing unit would affect the house price of the unit by the exact same amount no matter where the unit is located in the city. Is that a fair assumption?</p>
-<p><strong>For instance, would you expect the size of a housing unit to have the same marginal cost in Manhattan as compared to that in Staten Island?</strong></p>
+<h1 id="Bandwidth---Indicator-of-Scale">Bandwidth - Indicator of Scale<a class="anchor-link" href="#Bandwidth---Indicator-of-Scale">&#182;</a></h1><hr>
+<Explanation of bandwidth parameter here>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>&lt;img src = "../images/bandwidth.PNG"&gt;</p>
 
 </div>
 </div>
@@ -13305,8 +13181,9 @@ This would suggest that an increase in living area of a housing unit would affec
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../images/global_regression_estimate.PNG"></p>
-<hr>
+<h1 id="Multiscale-Geographically-Weighted-Regression"><strong>Multiscale</strong> Geographically Weighted Regression<a class="anchor-link" href="#Multiscale-Geographically-Weighted-Regression">&#182;</a></h1><hr>
+<p>Since different processes affect the spatial pattern we observe at different scales (as we saw in the human migration example above!), a recent multiscale extension to GWR was developed. This extension relaxes the assumtion that all processes operate at a single scale and allows the estimation of unique scales of spatial processes in a model.</p>
+<p>In the simulated example below, for example, an MGWR model will potentially be able to estimate an appropriate scale for each process depending on the amount of spatial heterogeneity in each process. MGWR model in effect, produces a bandwidth parameter for each spatial process being modeled.</p>
 
 </div>
 </div>
@@ -13314,97 +13191,16 @@ This would suggest that an increase in living area of a housing unit would affec
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Perhaps,-not."><strong>Perhaps, not.</strong><a class="anchor-link" href="#Perhaps,-not.">&#182;</a></h4><p>Spatial phenomenon exhibit spatial heterogeneity that is, we expect values to be higher in some places and lower in others. In the context of house prices in a city for example, housing units with the same structural characteristics are valued differently in different areas of a city. This would then imply that the same stimulus across a city such as an increase in living area of a housing unit, would affect the housing cost differently in different areas. For example, a more accurate map of the marginal cost of living area in New York City would be as below - where adding a unit square feet of space in downtown Manhattan would increase the housing price by a lot more than that in Staten Island.</p>
+<p><img src="../images/MGWR_band.PNG"></p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../images/local_regression_results.PNG"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-<ul>
-<li><em>Please note, the mapped estimates below are only representational.</em></li>
-</ul>
-
-</div>
-</div>
-</div></section></section>
-</div>
-</div>
-
-<script>
-
-require(
-    {
-      // it makes sense to wait a little bit when you are loading
-      // reveal from a cdn in a slow connection environment
-      waitSeconds: 15
-    },
-    [
-      "reveal.js/lib/js/head.min.js",
-      "reveal.js/js/reveal.js"
-    ],
-
-    function(head, Reveal){
-
-        // Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
-        Reveal.initialize({
-            controls: true,
-            progress: true,
-            history: true,
-
-            transition: "slide",
-
-            // Optional libraries used to extend on reveal.js
-            dependencies: [
-                { src: "reveal.js/lib/js/classList.js",
-                  condition: function() { return !document.body.classList; } },
-                { src: "reveal.js/plugin/notes/notes.js",
-                  async: true,
-                  condition: function() { return !!document.body.classList; } }
-            ]
-        });
-
-        var update = function(event){
-          if(MathJax.Hub.getAllJax(Reveal.getCurrentSlide())){
-            MathJax.Hub.Rerender(Reveal.getCurrentSlide());
-          }
-        };
-
-        Reveal.addEventListener('slidechanged', update);
-
-        function setScrollingSlide() {
-            var scroll = false
-            if (scroll === true) {
-              var h = $('.reveal').height() * 0.95;
-              $('section.present').find('section')
-                .filter(function() {
-                  return $(this).height() > h;
-                })
-                .css('height', 'calc(95vh)')
-                .css('overflow-y', 'scroll')
-                .css('margin-top', '20px');
-            }
-        }
-
-        // check and set the scrolling slide every time the slide change
-        Reveal.addEventListener('slidechanged', setScrollingSlide);
-
-    }
-
-);
-</script>
-
+    </div>
+  </div>
 </body>
+
+ 
 
 
 </html>

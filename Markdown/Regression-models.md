@@ -25,7 +25,7 @@ Let's jump right into the problem we are going to work on in this workshop and u
 Since the value of the attributes of a housing unit cannot be directly measured, a method called the hedonic modeling is applied to a housing unit price such that it could be decomposed into estimated prices for various characteristics - structural, neighborhood and locational. A typical house price model can be written as:
 
 
-<img src = "../images/traditional_hedonic_model.PNG">
+<img src="../images/traditional_hedonic_model.PNG">
 
 The *Xs* are the **independent variables** that affect the dependent variable *y* or **observed patterns** with the magnitude and direction modeled by the *Betas* which are the measure of **processes** affecting the dependent variable. These are the coefficient estimates that define how much and in what direction these processes affect the pattern. 
 
@@ -42,7 +42,7 @@ This would suggest that an increase in living area of a housing unit would affec
 
 **For instance, would you expect the size of a housing unit to have the same marginal cost in Manhattan as compared to that in Staten Island?**
 
-<img src = "../images/global_regression_estimate.PNG">
+<img src="../images/global_regression_estimate.PNG">
 
 ***
 
@@ -51,9 +51,9 @@ This would suggest that an increase in living area of a housing unit would affec
 Spatial phenomenon exhibit spatial heterogeneity that is, we expect values to be higher in some places and lower in others. In the context of house prices in a city for example, housing units with the same structural characteristics are valued differently in different areas of a city. This would then imply that the same stimulus across a city such as an increase in living area of a housing unit, would affect the housing cost differently in different areas. For example, a more accurate map of the marginal cost of living area in New York City would be as below - where adding a unit square feet of space in downtown Manhattan would increase the housing price by a lot more than that in Staten Island. 
 
 
-<img src = "../images/local_regression_results.PNG">
+<img src="../images/local_regression_results.PNG">
 
 ***
 
 
-*Please note, the mapped estimates below are only representational.*
+* *Please note, the mapped estimates below are only representational.*

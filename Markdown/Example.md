@@ -61,20 +61,20 @@ At this stage I am going to do the steps elaborated below live. The screenshots 
 
 ### 1. Loading the dataset and variables
 
-<img src="../images/step_1.png">
+<img src="../images/step_1.png" width="700">
 
 ### 2. Load the dependent and independent variables
 
-<img src="../images/step_2.png">
+<img src="../images/step_2.png" width="700">
 
 # Spatial Weighting Kernels and other Options
 
-<img src="../images/step_3.png">
+<img src="../images/step_3.png" width="700">
 
-<img src="../images/spatial_weights.PNG">
+<img src="../images/spatial_weights.PNG" width="700">
 
 ### Advanced options
 
-<img src="../images/advanced.png">
+<img src="../images/advanced.png" width="700">
 
 ***

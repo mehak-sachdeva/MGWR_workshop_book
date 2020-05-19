@@ -47,6 +47,6 @@
 
 ***
 
-- Professor Stewart Fotheringham and Professor Peter Kedron for immense help in building the workshop material <br><br>
+- Professor Stewart Fotheringham and Professor Peter Kedron for their immense help with building the workshop material <br><br>
 
-- MGWR Development Team: Ziqi Li, Taylor Oshan, Stewart Fotheringham, Wei Kang, Levi Wolf, Hanchen Yu, Mehak Sachdeva, and Sarah Bardin (Spatial Analysis Research Center (SPARC),Arizona State University, Tempe, USA)
+- MGWR Development Team: Ziqi Li, Taylor Oshan, Stewart Fotheringham, Wei Kang, Levi Wolf, Hanchen Yu, Mehak Sachdeva, and Sarah Bardin (Spatial Analysis Research Center (SPARC), Arizona State University, Tempe, USA)

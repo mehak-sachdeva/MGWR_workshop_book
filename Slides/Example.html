@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 
-<title>Index slides</title>
+<title>Example slides</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13242,77 +13242,173 @@ a.anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1><center> Multiscale Geographically Weighted Regression<br><br>UCGIS Symposium Workshop - 2020 <center></h1>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<center> Mehak Sachdeva </center>
-<center> Spatial Analysis Research Center </center>
-<center> School of Geographical Sciences and Urban Planning </center>
-<center> Arizona State University </center><br>
-
-
-<center> Presented on 6/3/2020 - UCGIS Symposium Workshop </center>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Goal">Goal<a class="anchor-link" href="#Goal">&#182;</a></h3><hr>
-<p align="justify">The overall goal of the workshop is to introduce participants to multiscale spatial modeling and engage in a discussion of the scale of geographic processes and their measurement. Multiscale Geographically Weighted Regression (MGWR) is a cutting-edge modeling technique which integrates both nomothetic and ideographic approaches in geography and allows a more nuanced interpretation of place and space. Participants will be introduced to the field of local modeling and the opportunities it presents to measure the scale at which geographic processes operate. Participants will also complete hands-on training in the use of MGWR in research, and will be encouraged to use the provided code for their own future research.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h3><hr>
-<p><font color=red> Topics </font><br><br></p>
-<ol>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Patterns-processes">Spatial Patterns and Processes</a></strong><br><br></p>
-</li>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Regression-models">Regression Models - The why and the how</a></strong><br><br></p>
-</li>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Methodology">Methodological Review - GWR and MGWR</a></strong><br><br></p>
-</li>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Example">Hands-on Example with MGWR</a></strong><br><br></p>
-</li>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Interpretation">Interpretation and Understanding Outputs</a></strong><br><br></p>
-</li>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Mapping">Mapping Parameter Coefficients</a></strong><br><br></p>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Resources">Resources<a class="anchor-link" href="#Resources">&#182;</a></h3><hr>
-<p><strong>Github book resource: <a href="https://mehak-sachdeva.github.io/MGWR_workshop_book/">https://mehak-sachdeva.github.io/MGWR_workshop_book/</a></strong><br><br>
-<strong>Download the software here: <a href="https://sgsup.asu.edu/sparc/mgwr">https://sgsup.asu.edu/sparc/mgwr</a></strong> <br><br>
-<strong>Data used in the software: <a href="http://msachdeva.cartodb.com/api/v2/sql?filename=example_dataset&amp;format=csv&amp;q=SELECT+*+FROM+census_tracts_final+as+example_data">Direct download link</a></strong> <br><br>
-<strong>Python open-source package: <a href="https://github.com/pysal/mgwr">https://github.com/pysal/mgwr</a></strong> <br><br></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Acknowledgements">Acknowledgements<a class="anchor-link" href="#Acknowledgements">&#182;</a></h3><hr>
+<h1 id="-Hands-on-Example-with-MGWR-"><center> Hands-on Example with MGWR </center><a class="anchor-link" href="#-Hands-on-Example-with-MGWR-">&#182;</a></h1><p><strong>Notebook Outline:</strong></p>
+<p><strong>An example of hedonic house price modeling using MGWR</strong></p>
 <ul>
-<li><p>Professor Stewart Fotheringham and Professor Peter Kedron for their immense help with building the workshop material <br><br></p>
+<li><a href="#Introduction-to-the-Dataset">Introduction to the Dataset</a></li>
+<li><a href="#Loading-the-Dataset">Loading the dataset</a></li>
+<li><a href="#Spatial-Weighting-Kernels-and-other-Options">Spatial Weighting Kernels and other Options</a> <br><br></li>
+</ul>
+<p><a href="https://mehak-sachdeva.github.io/MGWR_workshop_book/">Back to the main page</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Introduction-to-the-Dataset">Introduction to the Dataset<a class="anchor-link" href="#Introduction-to-the-Dataset">&#182;</a></h1><hr>
+<h4 id="Please-use-this-link-to-directly-download-a-csv-of-the-dataset">Please use <a href="http://msachdeva.cartodb.com/api/v2/sql?filename=example_dataset&amp;format=csv&amp;q=SELECT+*+FROM+census_tracts_final+as+example_data">this link</a> to directly download a csv of the dataset<a class="anchor-link" href="#Please-use-this-link-to-directly-download-a-csv-of-the-dataset">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../images/data_structure_1.PNG"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong>houses</strong> - number of houses in the census tracts</li>
+</ul>
+<p><strong>Dependent variables</strong></p>
+<ul>
+<li><p><strong>avg_price</strong> - average house prices in the census tracts</p>
+
+<pre><code>  OR</code></pre>
 </li>
-<li><p>MGWR Development Team: Ziqi Li, Taylor Oshan, Stewart Fotheringham, Wei Kang, Levi Wolf, Hanchen Yu, Mehak Sachdeva, and Sarah Bardin (Spatial Analysis Research Center (SPARC), Arizona State University, Tempe, USA)</p>
+<li><p><strong>ln_avg_price</strong> - log-transformed average house prices in the census tracts</p>
 </li>
 </ul>
+<p><strong>Independent variables</strong></p>
+<ul>
+<li><p><strong>avg_tech</strong> - average technology related jobs in the census tracts</p>
+</li>
+<li><p><strong>avg_unemp</strong> - average unemployment rate in the census tracts</p>
+</li>
+<li><p><strong>avg_index</strong> - average number of house with a view to the waterfront</p>
+</li>
+<li><p><strong>avg_basement</strong> - average basements in the houses in the census tracts</p>
+</li>
+<li><p><strong>avg_water_dist</strong> - average distance to nearest waterfronts from the houses in the census tracts</p>
+</li>
+<li><p><strong>avg_sqft</strong> - average square footage of living area in houses in the census tracts</p>
+</li>
+<li><p><strong>avg_age</strong> - average age of housing units in the census tracts</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Dependent-variable-distribution">Dependent variable distribution<a class="anchor-link" href="#Dependent-variable-distribution">&#182;</a></h4><p><img src="../images/data_hist.PNG"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Hence,-we-use-the-log-transformed-dependent-variable-ln_avg_price">Hence, we use the log-transformed dependent variable <em>ln_avg_price</em><a class="anchor-link" href="#Hence,-we-use-the-log-transformed-dependent-variable-ln_avg_price">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Loading-the-Dataset">Loading the Dataset<a class="anchor-link" href="#Loading-the-Dataset">&#182;</a></h1><p>Open the <a href="https://sgsup.asu.edu/sparc/mgwr">MGWR GUI software</a> on your desktop to follow along!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>At this stage I am going to do the steps elaborated below live. The screenshots of the steps below will guide you if you need additional reference.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.-Loading-the-dataset-and-variables">1. Loading the dataset and variables<a class="anchor-link" href="#1.-Loading-the-dataset-and-variables">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../images/step_1.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.-Load-the-dependent-and-independent-variables">2. Load the dependent and independent variables<a class="anchor-link" href="#2.-Load-the-dependent-and-independent-variables">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../images/step_2.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Spatial-Weighting-Kernels-and-other-Options">Spatial Weighting Kernels and other Options<a class="anchor-link" href="#Spatial-Weighting-Kernels-and-other-Options">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../images/step_3.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../images/spatial_weights.PNG"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Advanced-options">Advanced options<a class="anchor-link" href="#Advanced-options">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../images/advanced.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>

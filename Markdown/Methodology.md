@@ -32,7 +32,7 @@ To calibrate a regression model at each location we would technicaly require mul
 
 
 
-<img src = "../images/bandwidth.PNG">
+<img src="../images/bandwidth.PNG">
 
 # **Multiscale** Geographically Weighted Regression
 

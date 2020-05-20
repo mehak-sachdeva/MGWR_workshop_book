@@ -77,4 +77,6 @@ At this stage I am going to do the steps elaborated below live. The screenshots 
 
 <img src="../images/advanced.png" width="700">
 
+[Next](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Interpretation)
+
 ***

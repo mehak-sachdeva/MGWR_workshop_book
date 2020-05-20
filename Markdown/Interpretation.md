@@ -55,4 +55,6 @@ The **beta_** columns need to be filtered to have only the significant parameter
 
 <img src="../images/t_crit.png" width="700">
 
+[Next](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Mapping)
+
 ***

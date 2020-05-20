@@ -44,4 +44,6 @@ In the simulated example below, for example, an MGWR model will potentially be a
 
 <img src="../images/MGWR_band.PNG" width="800">
 
+[Next](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Example)
+
 ***

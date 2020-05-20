@@ -49,3 +49,5 @@
 - Professor Stewart Fotheringham and Professor Peter Kedron for their immense help with building the workshop material <br><br>
 
 - MGWR Development Team: Ziqi Li, Taylor Oshan, Stewart Fotheringham, Wei Kang, Levi Wolf, Hanchen Yu, Mehak Sachdeva, and Sarah Bardin (Spatial Analysis Research Center (SPARC), Arizona State University, Tempe, USA)
+
+[Next](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Patterns-processes)

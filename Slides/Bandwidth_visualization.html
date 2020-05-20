@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 
-<title>Index slides</title>
+<title>Bandwidth_visualization slides</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13239,82 +13239,534 @@ a.anchor-link {
 <div class="reveal">
 <div class="slides">
 <section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1><center> Multiscale Geographically Weighted Regression<br><br>UCGIS Symposium Workshop - 2020 <center></h1>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#@title Python imports</span>
+<span class="c1"># A bit of imports</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interact_manual</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Polygon</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">color_codes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="k">import</span> <span class="n">LinearSegmentedColormap</span>
+<span class="kn">from</span> <span class="nn">matplotlib_scalebar.scalebar</span> <span class="k">import</span> <span class="n">ScaleBar</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">statm</span>
+
+<span class="kn">import</span> <span class="nn">libpysal</span> <span class="k">as</span> <span class="nn">ps</span>
+<span class="kn">from</span> <span class="nn">mgwr.gwr</span> <span class="k">import</span> <span class="n">GWR</span>
+<span class="kn">from</span> <span class="nn">mgwr.gwr</span> <span class="k">import</span> <span class="n">MGWR</span>
+<span class="kn">from</span> <span class="nn">mgwr.sel_bw</span> <span class="k">import</span> <span class="n">Sel_BW</span>
+<span class="kn">from</span> <span class="nn">spglm.family</span> <span class="k">import</span> <span class="n">Gaussian</span><span class="p">,</span> <span class="n">Binomial</span><span class="p">,</span> <span class="n">Poisson</span>
+<span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="n">pool</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Pool</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">io</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example_dataset.csv&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[24]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([&#39;the_geom&#39;, &#39;longitude&#39;, &#39;the_geom_webmercator&#39;, &#39;avg_tech&#39;, &#39;latitude&#39;,
+       &#39;houses&#39;, &#39;avg_unemp&#39;, &#39;cartodb_id&#39;, &#39;avg_index&#39;, &#39;avg_price&#39;,
+       &#39;avg_basement&#39;, &#39;avg_sqft&#39;, &#39;avg_water_dist&#39;, &#39;avg_age&#39;, &#39;ind&#39;],
+      dtype=&#39;object&#39;)</pre>
+</div>
+
+</div>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<center> Mehak Sachdeva </center>
-<center> Spatial Analysis Research Center </center>
-<center> School of Geographical Sciences and Urban Planning </center>
-<center> Arizona State University </center><br>
-
-
-<center> Presented on 6/3/2020 - UCGIS Symposium Workshop </center>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Goal">Goal<a class="anchor-link" href="#Goal">&#182;</a></h3><hr>
-<p align="justify">The overall goal of the workshop is to introduce participants to multiscale spatial modeling and engage in a discussion of the scale of geographic processes and their measurement. Multiscale Geographically Weighted Regression (MGWR) is a cutting-edge modeling technique which integrates both nomothetic and ideographic approaches in geography and allows a more nuanced interpretation of place and space. Participants will be introduced to the field of local modeling and the opportunities it presents to measure the scale at which geographic processes operate. Participants will also complete hands-on training in the use of MGWR in research, and will be encouraged to use the provided code for their own future research.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h3><hr>
-<ol>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Patterns-processes">Spatial Patterns and Processes</a></strong><br><br></p>
-</li>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Regression-models">Regression Models - The why and the how</a></strong><br><br></p>
-</li>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Methodology">Methodological Review - GWR and MGWR</a></strong><br><br></p>
-</li>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Example">Hands-on Example with MGWR</a></strong><br><br></p>
-</li>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Interpretation">Interpretation and Understanding Outputs</a></strong><br><br></p>
-</li>
-<li><p><strong><a href="http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Mapping">Mapping Parameter Coefficients</a></strong><br><br></p>
-</li>
-</ol>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ln_price&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;avg_price&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Resources">Resources<a class="anchor-link" href="#Resources">&#182;</a></h3><hr>
-<p><strong>Github book resource: <a href="https://mehak-sachdeva.github.io/MGWR_workshop_book/">https://mehak-sachdeva.github.io/MGWR_workshop_book/</a></strong><br><br>
-<strong>Download the software here: <a href="https://sgsup.asu.edu/sparc/mgwr">https://sgsup.asu.edu/sparc/mgwr</a></strong> <br><br>
-<strong>Data used in the software: <a href="http://msachdeva.cartodb.com/api/v2/sql?filename=example_dataset&amp;format=csv&amp;q=SELECT+*+FROM+census_tracts_final+as+example_data">Direct download link</a></strong> <br><br>
-<strong>Python open-source package: <a href="https://github.com/pysal/mgwr">https://github.com/pysal/mgwr</a></strong> <br><br></p>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ln_price&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Acknowledgements">Acknowledgements<a class="anchor-link" href="#Acknowledgements">&#182;</a></h3><hr>
-<ul>
-<li><p>Professor Stewart Fotheringham and Professor Peter Kedron for their immense help with building the workshop material <br><br></p>
-</li>
-<li><p>MGWR Development Team: Ziqi Li, Taylor Oshan, Stewart Fotheringham, Wei Kang, Levi Wolf, Hanchen Yu, Mehak Sachdeva, and Sarah Bardin (Spatial Analysis Research Center (SPARC), Arizona State University, Tempe, USA)</p>
-</li>
-</ul>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[29]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0      12.611636
+1      12.312879
+2      12.563657
+3      12.715962
+4      12.619820
+         ...    
+354    12.936781
+355    12.733797
+356    12.839368
+357    13.007454
+358    13.426880
+Name: ln_price, Length: 359, dtype: float64</pre>
+</div>
+
+</div>
 
 </div>
 </div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">statm</span>
+<span class="n">X</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;avg_tech&#39;</span><span class="p">,</span><span class="s1">&#39;avg_unemp&#39;</span><span class="p">,</span><span class="s1">&#39;avg_index&#39;</span><span class="p">,</span><span class="s1">&#39;avg_sqft&#39;</span><span class="p">,</span><span class="s1">&#39;avg_basement&#39;</span><span class="p">,</span><span class="s1">&#39;avg_water_dist&#39;</span><span class="p">,</span><span class="s1">&#39;avg_age&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X_std</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">-</span><span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">X</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_std</span><span class="o">=</span><span class="n">statm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
+<span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ln_price&#39;</span><span class="p">]</span>
+<span class="n">y_std</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">y</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">statm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_std</span><span class="p">,</span><span class="n">X_std</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">predictions</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[42]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>        <td>ln_price</td>     <th>  R-squared:         </th> <td>   0.898</td> 
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.896</td> 
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   438.4</td> 
+</tr>
+<tr>
+  <th>Date:</th>             <td>Wed, 20 May 2020</td> <th>  Prob (F-statistic):</th> <td>1.15e-168</td>
+</tr>
+<tr>
+  <th>Time:</th>                 <td>12:47:31</td>     <th>  Log-Likelihood:    </th> <td> -98.782</td> 
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>   357</td>      <th>  AIC:               </th> <td>   213.6</td> 
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>   349</td>      <th>  BIC:               </th> <td>   244.6</td> 
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     7</td>      <th>                     </th>     <td> </td>    
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>    
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+         <td></td>           <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th>          <td> 6.721e-15</td> <td>    0.017</td> <td> 3.93e-13</td> <td> 1.000</td> <td>   -0.034</td> <td>    0.034</td>
+</tr>
+<tr>
+  <th>avg_tech</th>       <td>    0.2186</td> <td>    0.029</td> <td>    7.433</td> <td> 0.000</td> <td>    0.161</td> <td>    0.276</td>
+</tr>
+<tr>
+  <th>avg_unemp</th>      <td>   -0.2990</td> <td>    0.028</td> <td>  -10.802</td> <td> 0.000</td> <td>   -0.353</td> <td>   -0.245</td>
+</tr>
+<tr>
+  <th>avg_index</th>      <td>   -0.1231</td> <td>    0.030</td> <td>   -4.115</td> <td> 0.000</td> <td>   -0.182</td> <td>   -0.064</td>
+</tr>
+<tr>
+  <th>avg_sqft</th>       <td>    0.5865</td> <td>    0.023</td> <td>   25.043</td> <td> 0.000</td> <td>    0.540</td> <td>    0.633</td>
+</tr>
+<tr>
+  <th>avg_basement</th>   <td>    0.0984</td> <td>    0.023</td> <td>    4.212</td> <td> 0.000</td> <td>    0.052</td> <td>    0.144</td>
+</tr>
+<tr>
+  <th>avg_water_dist</th> <td>   -0.2106</td> <td>    0.034</td> <td>   -6.280</td> <td> 0.000</td> <td>   -0.277</td> <td>   -0.145</td>
+</tr>
+<tr>
+  <th>avg_age</th>        <td>    0.1563</td> <td>    0.025</td> <td>    6.371</td> <td> 0.000</td> <td>    0.108</td> <td>    0.205</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td>17.936</td> <th>  Durbin-Watson:     </th> <td>   1.793</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.000</td> <th>  Jarque-Bera (JB):  </th> <td>  44.569</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td> 0.139</td> <th>  Prob(JB):          </th> <td>2.10e-10</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 4.708</td> <th>  Cond. No.          </th> <td>    4.47</td>
+</tr>
+</table><br/><br/>Warnings:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">libpysal</span> <span class="k">as</span> <span class="nn">ps</span>
+<span class="kn">from</span> <span class="nn">mgwr.gwr</span> <span class="k">import</span> <span class="n">GWR</span>
+<span class="kn">from</span> <span class="nn">mgwr.gwr</span> <span class="k">import</span> <span class="n">MGWR</span>
+<span class="kn">from</span> <span class="nn">mgwr.sel_bw</span> <span class="k">import</span> <span class="n">Sel_BW</span>
+<span class="kn">from</span> <span class="nn">spglm.family</span> <span class="k">import</span> <span class="n">Gaussian</span><span class="p">,</span> <span class="n">Binomial</span><span class="p">,</span> <span class="n">Poisson</span>
+<span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="n">pool</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Pool</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[44]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([&#39;the_geom&#39;, &#39;longitude&#39;, &#39;the_geom_webmercator&#39;, &#39;avg_tech&#39;, &#39;latitude&#39;,
+       &#39;houses&#39;, &#39;avg_unemp&#39;, &#39;cartodb_id&#39;, &#39;avg_index&#39;, &#39;avg_price&#39;,
+       &#39;avg_basement&#39;, &#39;avg_sqft&#39;, &#39;avg_water_dist&#39;, &#39;avg_age&#39;, &#39;ind&#39;,
+       &#39;ln_price&#39;],
+      dtype=&#39;object&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">])))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ln_price&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">y_std</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">y</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;avg_tech&#39;</span><span class="p">,</span><span class="s1">&#39;avg_unemp&#39;</span><span class="p">,</span><span class="s1">&#39;avg_index&#39;</span><span class="p">,</span><span class="s1">&#39;avg_sqft&#39;</span><span class="p">,</span><span class="s1">&#39;avg_basement&#39;</span><span class="p">,</span><span class="s1">&#39;avg_water_dist&#39;</span><span class="p">,</span><span class="s1">&#39;avg_age&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">X_std</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="o">-</span><span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">X</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">selector_gwr</span> <span class="o">=</span> <span class="n">Sel_BW</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">y_std</span><span class="p">,</span> <span class="n">X_std</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">selector_mgwr</span> <span class="o">=</span> <span class="n">Sel_BW</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">y_std</span><span class="p">,</span> <span class="n">X_std</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">selector_mgwr</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pool</span><span class="o">=</span><span class="n">pool</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[49]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 43., 164., 226., 191.,  45.,  81.,  45., 354.])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">time</span>
+model_mgwr = MGWR(coords,y_std,X_std,selector_mgwr,fixed=False,kernel=&#39;bisquare&#39;,sigma2_v1=True)
+results_mgwr=model_mgwr.fit()
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="1b2e2ad8-13c0-43b2-b3e6-7593b48d2be0"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#1b2e2ad8-13c0-43b2-b3e6-7593b48d2be0');
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "9210d3a4aecb4cfa8d04d463574119e6", "version_major": 2, "version_minor": 0}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+Wall time: 7.64 s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results_mgwr</span><span class="o">.</span><span class="n">R2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[51]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9775393617728864</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[147]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;MGWR_session_results.csv&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[148]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;w_43&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">results_mgwr</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">171</span><span class="p">]</span>
+<span class="n">df2</span><span class="p">[</span><span class="s1">&#39;w_164&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">results_mgwr</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">171</span><span class="p">]</span>
+<span class="n">df2</span><span class="p">[</span><span class="s1">&#39;w_226&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">results_mgwr</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">171</span><span class="p">]</span>
+<span class="n">df2</span><span class="p">[</span><span class="s1">&#39;w_81&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">results_mgwr</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">171</span><span class="p">]</span>
+<span class="n">df2</span><span class="p">[</span><span class="s1">&#39;w_354&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">results_mgwr</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">171</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[149]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;MGWR_session_results.csv&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div></section></section>
 </div>
 </div>

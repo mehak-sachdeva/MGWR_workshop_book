@@ -149,7 +149,7 @@
     \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
     % Document parameters
     % Document title
-    \title{Interpretation}
+    \title{Mapping}
     
     
     
@@ -292,91 +292,140 @@
     
     \#
 
-Interpretation and Understanding Outputs
+Mapping Parameter Coefficients
 
 \textbf{Notebook Outline:}
 
 \textbf{An example of hedonic house price modeling using MGWR} -
-Section \ref{global-model-results} -
-Section \ref{mgwr-results---model-fit} -
-Section \ref{mgwr-results---bandwidth-parameters} -
-Section \ref{mgwr-results---parameter-estimates}
+Section \ref{mask-the-significant-coefficients} -
+Section \ref{spatial-join---results-to-shapefile} -
+Section \ref{maps-of-all-parameter-coefficients} -
+Section \ref{interpretation-of-maps}
 
 \href{https://mehak-sachdeva.github.io/MGWR_workshop_book/}{Back to the
 main page}
 
-    \section{Global Model Results}\label{global-model-results}
+    \subsubsection{\texorpdfstring{If you want to follow along with the
+code, follow
+\href{https://colab.research.google.com/drive/1oqnwg_HkY-L_MdRTT2qg5EL-LRrOzmbd?usp=sharing}{this
+link}}{If you want to follow along with the code, follow this link}}\label{if-you-want-to-follow-along-with-the-code-follow-this-link}
 
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+    \section{Mask the Significant
+Coefficients}\label{mask-the-significant-coefficients}
 
-\subsubsection{Global Regression Model Fit and Parameter
-Estimates}\label{global-regression-model-fit-and-parameter-estimates}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{b\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta\PYZus{}Intercept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta\PYZus{}avg\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta\PYZus{}avg\PYZus{}water\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta\PYZus{}avg\PYZus{}sqft}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta\PYZus{}avg\PYZus{}basement}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta\PYZus{}avg\PYZus{}index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta\PYZus{}avg\PYZus{}unemp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta\PYZus{}avg\PYZus{}tech}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{bt\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}constant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}water\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}sqft}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}round\PYZus{}basement}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}unemp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}tech}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{t\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t\PYZus{}Intercept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t\PYZus{}avg\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t\PYZus{}avg\PYZus{}water\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t\PYZus{}avg\PYZus{}sqft}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t\PYZus{}avg\PYZus{}basement}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t\PYZus{}avg\PYZus{}index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t\PYZus{}avg\PYZus{}unemp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t\PYZus{}avg\PYZus{}tech}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{t\PYZus{}crit} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{2.92}\PY{p}{,}\PY{l+m+mf}{2.94}\PY{p}{,}\PY{l+m+mf}{2.67}\PY{p}{,}\PY{l+m+mf}{2.99}\PY{p}{,}\PY{l+m+mf}{3.01}\PY{p}{,}\PY{l+m+mf}{2.14}\PY{p}{,}\PY{l+m+mf}{2.20}\PY{p}{,}\PY{l+m+mf}{2.41}\PY{p}{]}
+\end{Verbatim}
 
-Two files are saved on your computer once you run the MGWR model -
-\textbf{MGWR\_session\_summary.txt} and
-\textbf{MGWR\_session\_results.csv}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{:}
+            \PY{n}{census}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{census}\PY{p}{[}\PY{n}{t\PYZus{}cols}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{t\PYZus{}crit}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{bt\PYZus{}cols}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{census}\PY{p}{[}\PY{n}{b\PYZus{}cols}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+            \PY{n}{census}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{census}\PY{p}{[}\PY{n}{t\PYZus{}cols}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{t\PYZus{}crit}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{bt\PYZus{}cols}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{census}\PY{p}{[}\PY{n}{b\PYZus{}cols}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
 
+    \section{Spatial Join - Results to
+Shapefile}\label{spatial-join---results-to-shapefile}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{census\PYZus{}tracts/census\PYZus{}tracts.shp}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{crs} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EPSG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{4326}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        \PY{n}{geo} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{read\PYZus{}file}\PY{p}{(}\PY{n}{c}\PY{p}{,}\PY{n}{crs}\PY{o}{=}\PY{n}{crs}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{objectid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+        \PY{n}{fig}\PY{p}{,}\PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+        \PY{n}{geo}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+        
+        \PY{n}{coords} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{census}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}coor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{census}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}coor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{geom\PYZus{}points} \PY{o}{=} \PY{p}{[}\PY{n}{Point}\PY{p}{(}\PY{n}{xy}\PY{p}{)} \PY{k}{for} \PY{n}{xy} \PY{o+ow}{in} \PY{n}{coords}\PY{p}{]}
+        \PY{n}{geo\PYZus{}df} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{GeoDataFrame}\PY{p}{(}\PY{n}{census}\PY{p}{,}\PY{n}{crs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{init}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{epsg:4326}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}\PY{n}{geometry}\PY{o}{=}\PY{n}{geom\PYZus{}points}\PY{p}{)}
+        \PY{n}{geo\PYZus{}df} \PY{o}{=} \PY{n}{geo\PYZus{}df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OBJECTID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{geo\PYZus{}df} \PY{o}{=} \PY{n}{geo\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}crs}\PY{p}{(}\PY{n}{epsg}\PY{o}{=}\PY{l+m+mi}{3857}\PY{p}{)}
+        \PY{n}{final\PYZus{}geo} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{sjoin}\PY{p}{(}\PY{n}{geo}\PY{p}{,} \PY{n}{geo\PYZus{}df}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{op}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{contains}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lsuffix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rsuffix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{fig}\PY{p}{,}\PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}facecolor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{final\PYZus{}geo}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{geo\PYZus{}df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tomato}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \section{Map of all Parameter
+Coefficients}\label{map-of-all-parameter-coefficients}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{mapping\PYZus{}results} \PY{k}{as} \PY{n+nn}{maps}
+\end{Verbatim}
+
+    \subsubsection{All parameter estimates for age
+covariate}\label{all-parameter-estimates-for-age-covariate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{maps}\PY{o}{.}\PY{n}{mapp}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta\PYZus{}avg\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RdBu\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b\PYZus{}age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{normal}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mapping_files/Mapping_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
     
+    \subsubsection{Only significant parameter estimates for age
+covariate}\label{only-significant-parameter-estimates-for-age-covariate}
 
-    \section{MGWR Results - Model Fit}\label{mgwr-results---model-fit}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{maps}\PY{o}{.}\PY{n}{mapp}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bt\PYZus{}age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{normal}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
 
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mapping_files/Mapping_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
     
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{maps}\PY{o}{.}\PY{n}{mapp}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}water\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blues\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bt\PYZus{}water\PYZus{}dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{normal}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
 
-    \section{MGWR Results - Bandwidth
-Parameters}\label{mgwr-results---bandwidth-parameters}
-
-\subsubsection{Total number of census tracts =
-357}\label{total-number-of-census-tracts-357}
-
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mapping_files/Mapping_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
     
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{maps}\PY{o}{.}\PY{n}{mapp}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}sqft}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bt\PYZus{}sqft}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{normal}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
 
-    \subsubsection{Visualizing bandwidths to understand
-scale}\label{visualizing-bandwidths-to-understand-scale}
-
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mapping_files/Mapping_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
     
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{maps}\PY{o}{.}\PY{n}{mapp}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}unemp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blues\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bt\PYZus{}unemp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{normal}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
 
-    \section{MGWR Results - Parameter
-Estimates}\label{mgwr-results---parameter-estimates}
-
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mapping_files/Mapping_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
     
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{maps}\PY{o}{.}\PY{n}{mapp}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}tech}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bt\PYZus{}tech}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{normal}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
 
-    \subsubsection{\texorpdfstring{The new columns added to the results
-csv:}{The new columns added to the results csv: }}\label{the-new-columns-added-to-the-results-csv}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{ols\_residual} - Residuals from OLS model for every location
-  point
-\item
-  \textbf{mgwr\_yhat} - yhat from MGWR for each location point
-\item
-  \textbf{mgwr\_residual} - Residuals from MGWR for every location point
-\item
-  \textbf{localR2} - Explained variation at each location point
-\item
-  \textbf{beta\_} - Columns starting with \emph{beta} are parameter
-  estimates for the covariates
-\item
-  \textbf{se\_} - Columns starting with \emph{se} are standard errors
-  for estimates for the covariates
-\item
-  \textbf{t\_} - Columns starting with \emph{t} are t values for
-  estimates for the covariates
-\item
-  \textbf{p\_} - Columns starting with \emph{p} are p values for
-  estimates for the covariates
-\item
-  \textbf{sumW\_} - Sum of weights for the covariates at each location
-\end{enumerate}
-
-    The \textbf{beta\_} columns need to be filtered to have only the
-significant parameter estimates. This filtering is done using the
-\textbf{t\_} value columns. The thresholds for t values are defined by
-the \textbf{adjusted t values} as shown below.
-
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mapping_files/Mapping_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
     
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{maps}\PY{o}{.}\PY{n}{mapp}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}constant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RdBu\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bt\PYZus{}constant}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{normal}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mapping_files/Mapping_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Interpretation of Maps}\label{interpretation-of-maps}
 
     \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 

@@ -34,7 +34,7 @@ Two files are saved on your computer once you run the MGWR model - **MGWR_sessio
 
 ### Visualizing bandwidths to understand scale
 
-
+<img src="../images/Bandwidths.png" width="800">
 
 # MGWR Results - Parameter Estimates
 
@@ -51,7 +51,7 @@ Two files are saved on your computer once you run the MGWR model - **MGWR_sessio
 8. **p_** - Columns starting with *p* are p values for estimates for the covariates
 9. **sumW_** - Sum of weights for the covariates at each location
 
-The **beta_** columns need to be filtered to have only the significant parameter estimates. This filtering is done using the **t_** value columns. The thresholds for t values are defined by the adjusted t values as shown below.
+The **beta_** columns need to be filtered to have only the significant parameter estimates. This filtering is done using the **t_** value columns. The thresholds for t values are defined by the **adjusted t values** as shown below.
 
 <img src="../images/t_crit.png" width="700">
 

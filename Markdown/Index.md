@@ -19,7 +19,6 @@
 ### Table of Contents
 
 ***
-<font color=red> Topics </font><br><br>
 1. **[Spatial Patterns and Processes](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Patterns-processes)**<br><br>
 
 2. **[Regression Models - The why and the how](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Regression-models)**<br><br>

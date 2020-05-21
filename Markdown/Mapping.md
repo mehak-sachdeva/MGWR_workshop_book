@@ -54,7 +54,7 @@ final_geo.plot(ax=ax, color='gold')
 geo_df.plot(ax=ax, markersize=8,alpha=1,color='tomato',marker="o")
 ```
 
-# Map of all Parameter Coefficients
+# Maps of all Parameter Coefficients
 
 
 ```python
@@ -129,5 +129,59 @@ maps.mapp(name='bt_constant',color='RdBu_r',filename="bt_constant",normal=False)
 
 
 # Interpretation of Maps
+
+### Interpreting the map with distance to nearest waterfront
+
+
+```python
+maps.mapp(name='bt_water_dist',color='Blues_r',filename="bt_water_dist",normal=False)
+```
+
+
+![png](Mapping_files/Mapping_20_0.png)
+
+
+#### Scale of spatial units used is essential in interpreting the results of the parameter coefficients
+
+The model that we are using is a log-linear model, where only the dependent variable (*y*) is log-transformed. The interpretation of *Beta* would hence be calculated using the following formula:
+
+**One unit increase in *x* would change the house price by (exponent(Beta)-1) x 100 %**
+
+
+
+```python
+import numpy as np
+(np.exp(-0.6)-1)*100
+```
+
+
+
+
+    -45.11883639059735
+
+
+
+From the map above, with every unit increase in the average distance of houses to the waterfront in the census tract containing University of Washington and Bill Gate's House, holding all other variable constant, the house price would decrease by approximately **45%** (since the Beta is -0.6). This is a huge change and is observed to be more prominent around the areas adjacent to Lake Washington and near Discovery park and Alki beach.
+
+As clearly seen in the map, the effect of change of average distance to the waterfront for all census tracts in the county is not the same. In fact, in some region the parameter is not even significant.
+
+If we try and recall the parameter coefficient from the Global regression model for the same covariate, the value of beta was -0.21. This result would suggest, that no matter which census tract is in question, a unit decrease in average distance to the waterfront for the houses, would reduce the house prices by:
+**18%**. <br><br>
+As seen in this example (and as can be expanded using other parameter coefficient results), results using the MGWR technique provide a lot more information by localizing the results. Since it is unrealistic to expect that the same stimulus would create the same response irrespective of the geography or location, MGWR results demonstrate the power of local regression by producing a much better model fit and more plausible and intuitive coefficient estimates.    
+
+
+```python
+import numpy as np
+(np.exp(-0.21)-1)*100
+```
+
+
+
+
+    -18.941575402981293
+
+
+
+[Back to the main page](https://mehak-sachdeva.github.io/MGWR_workshop_book/)
 
 ***

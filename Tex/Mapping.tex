@@ -349,8 +349,8 @@ Shapefile}\label{spatial-join---results-to-shapefile}
         \PY{n}{geo\PYZus{}df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tomato}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
-    \section{Map of all Parameter
-Coefficients}\label{map-of-all-parameter-coefficients}
+    \section{Maps of all Parameter
+Coefficients}\label{maps-of-all-parameter-coefficients}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{mapping\PYZus{}results} \PY{k}{as} \PY{n+nn}{maps}
@@ -426,6 +426,75 @@ covariate}\label{only-significant-parameter-estimates-for-age-covariate}
     { \hspace*{\fill} \\}
     
     \section{Interpretation of Maps}\label{interpretation-of-maps}
+
+    \subsubsection{Interpreting the map with distance to nearest
+waterfront}\label{interpreting-the-map-with-distance-to-nearest-waterfront}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{maps}\PY{o}{.}\PY{n}{mapp}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bt\PYZus{}water\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blues\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bt\PYZus{}water\PYZus{}dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{normal}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mapping_files/Mapping_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Scale of spatial units used is essential in interpreting the
+results of the parameter
+coefficients}\label{scale-of-spatial-units-used-is-essential-in-interpreting-the-results-of-the-parameter-coefficients}
+
+The model that we are using is a log-linear model, where only the
+dependent variable (\emph{y}) is log-transformed. The interpretation of
+\emph{Beta} would hence be calculated using the following formula:
+
+\textbf{One unit increase in \emph{x} would change the house price by
+(exponent(Beta)-1) x 100 \%}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.6}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} -45.11883639059735
+\end{Verbatim}
+            
+    From the map above, with every unit increase in the average distance of
+houses to the waterfront in the census tract containing University of
+Washington and Bill Gate's House, holding all other variable constant,
+the house price would decrease by approximately \textbf{45\%} (since the
+Beta is -0.6). This is a huge change and is observed to be more
+prominent around the areas adjacent to Lake Washington and near
+Discovery park and Alki beach.
+
+As clearly seen in the map, the effect of change of average distance to
+the waterfront for all census tracts in the county is not the same. In
+fact, in some region the parameter is not even significant.
+
+    If we try and recall the parameter coefficient from the Global
+regression model for the same covariate, the value of beta was -0.21.
+This result would suggest, that no matter which census tract is in
+question, a unit decrease in average distance to the waterfront for the
+houses, would reduce the house prices by: \textbf{18\%}. As seen in this
+example (and as can be expanded using other parameter coefficient
+results), results using the MGWR technique provide a lot more
+information by localizing the results. Since it is unrealistic to expect
+that the same stimulus would create the same response irrespective of
+the geography or location, MGWR results demonstrate the power of local
+regression by producing a much better model fit and more plausible and
+intuitive coefficient estimates.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.21}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} -18.941575402981293
+\end{Verbatim}
+            
+    \href{https://mehak-sachdeva.github.io/MGWR_workshop_book/}{Back to the
+main page}
 
     \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 

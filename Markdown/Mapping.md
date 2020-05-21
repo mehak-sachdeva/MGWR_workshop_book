@@ -147,6 +147,7 @@ The model that we are using is a log-linear model, where only the dependent vari
 
 **One unit increase in *x* would change the house price by (exponent(Beta)-1) x 100 %**
 
+[Source](https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model/)
 
 
 ```python
@@ -171,7 +172,6 @@ As seen in this example (and as can be expanded using other parameter coefficien
 
 
 ```python
-import numpy as np
 (np.exp(-0.21)-1)*100
 ```
 

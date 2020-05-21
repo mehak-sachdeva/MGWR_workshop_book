@@ -450,6 +450,8 @@ dependent variable (\emph{y}) is log-transformed. The interpretation of
 \textbf{One unit increase in \emph{x} would change the house price by
 (exponent(Beta)-1) x 100 \%}
 
+\href{https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model/}{Source}
+
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}27}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
          \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.6}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
@@ -485,8 +487,7 @@ regression by producing a much better model fit and more plausible and
 intuitive coefficient estimates.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-         \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.21}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+{\color{incolor}In [{\color{incolor}28}]:} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.21}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
 \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]

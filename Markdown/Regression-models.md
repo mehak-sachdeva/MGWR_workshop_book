@@ -56,7 +56,7 @@ Spatial phenomenon exhibit spatial heterogeneity that is, we expect values to be
 ***
 
 
-* *Please note, the mapped estimates below are only representational.*
+* *Please note, the mapped estimates above are only representational.*
 
 [Next](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Methodology)
 

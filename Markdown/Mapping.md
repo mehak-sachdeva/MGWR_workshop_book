@@ -14,6 +14,8 @@
 
 ### If you want to follow along with the code, follow [this link](https://colab.research.google.com/drive/1oqnwg_HkY-L_MdRTT2qg5EL-LRrOzmbd?usp=sharing)
 
+### The shapefiles for mapping the parameter coefficients can be [downloaded here](https://github.com/mehak-sachdeva/MGWR_Workshop_2020/archive/master.zip)
+
 # Mask the Significant Coefficients
 
 

@@ -2,6 +2,7 @@
 # <center> Multiscale Geographically Weighted Regression<br><br>UCGIS Symposium Workshop - 2020 <center>
 
 <center> Mehak Sachdeva </center>
+<center> Ph.D. candidate in Computational Spatial Science </center>
 <center> Spatial Analysis Research Center </center>
 <center> School of Geographical Sciences and Urban Planning </center>
 <center> Arizona State University </center><br>

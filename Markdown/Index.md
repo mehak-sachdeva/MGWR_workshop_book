@@ -8,7 +8,13 @@
 <center> Arizona State University </center><br>
 
 
-<center> Presented on 6/3/2020 - UCGIS Symposium Workshop </center>
+<center> Presented on 6/3/2020 - UCGIS Symposium Workshop </center><br>
+
+**Contact information**
+
+Email: [mehaksachdeva@asu.edu](mailto:msachde1@asu.edu)
+
+Twitter handle: [@MehakSachdeva_](https://twitter.com/MehakSachdeva_)
 
 ### Goal
 

@@ -184,6 +184,8 @@ As seen in this example (and as can be expanded using other parameter coefficien
 
 
 
+[Previous](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Interpretation)
+
 [Back to the main page](https://mehak-sachdeva.github.io/MGWR_workshop_book/)
 
 ***

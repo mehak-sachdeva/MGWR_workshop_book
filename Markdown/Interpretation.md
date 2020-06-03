@@ -57,4 +57,8 @@ The **beta_** columns need to be filtered to have only the significant parameter
 
 [Next](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Mapping)
 
+[Previous](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Example)
+
+[Back to the main page](https://mehak-sachdeva.github.io/MGWR_workshop_book/)
+
 ***

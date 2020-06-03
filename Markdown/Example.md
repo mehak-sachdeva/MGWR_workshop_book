@@ -15,7 +15,17 @@
 
 ***
 
-#### Please use [this link](http://msachdeva.cartodb.com/api/v2/sql?filename=example_dataset&format=csv&q=SELECT+*+FROM+census_tracts_final+as+example_data) to directly download a csv of the dataset
+### Please use [this link](http://msachdeva.cartodb.com/api/v2/sql?filename=example_dataset&format=csv&q=SELECT+*+FROM+census_tracts_final+as+example_data) to directly download a csv of the dataset
+
+The raw data has been obtained from https://www.kaggle.com/harlfoxem/housesalesprediction.
+The data are cleaned and aggregated to the census tract level for King county, WA to make it smaller in size and manageable for the workshop.
+
+### Study area and aggregation
+
+
+<img src="../images/aggregation.PNG">
+
+### Aggregated dataset snapshot
 
 <img src="../images/data_structure_1.PNG">
 
@@ -59,6 +69,8 @@ Open the [MGWR GUI software](https://sgsup.asu.edu/sparc/mgwr) on your desktop t
 
 At this stage I am going to do the steps elaborated below live. The screenshots of the steps below will guide you if you need additional reference.
 
+*Please note, the screenshots below are taken on a Windows system. If you are using the software on Mac, the interface might differ slightly.*
+
 ### 1. Loading the dataset and variables
 
 <img src="../images/step_1.png" width="700">
@@ -78,5 +90,9 @@ At this stage I am going to do the steps elaborated below live. The screenshots 
 <img src="../images/advanced.png" width="700">
 
 [Next](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Interpretation)
+
+[Previous](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Methodology)
+
+[Back to the main page](https://mehak-sachdeva.github.io/MGWR_workshop_book/)
 
 ***

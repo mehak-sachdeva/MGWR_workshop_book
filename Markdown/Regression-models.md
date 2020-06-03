@@ -37,10 +37,10 @@ For example, in the equation above if the beta assumes a value of + 5, this woul
 
 ***
 
-In the equation above, the betas or the measure of processes affecting the patterns are averages across the entire study area!
+In the equation above, the betas or the measures of processes affecting the patterns are averages across the entire study area.
 This would suggest that an increase in living area of a housing unit would affect the house price of the unit by the exact same amount no matter where the unit is located in the city. Is that a fair assumption?
 
-**For instance, would you expect the size of a housing unit to have the same marginal cost in Manhattan as compared to that in Staten Island?**
+**For instance in the map below, would you expect the size of a housing unit to have the same marginal cost in Manhattan as compared to that in Staten Island?**
 
 <img src="../images/global_regression_estimate.PNG" width="800">
 
@@ -48,7 +48,7 @@ This would suggest that an increase in living area of a housing unit would affec
 
  #### **Perhaps, not.**  
 
-Spatial phenomenon exhibit spatial heterogeneity that is, we expect values to be higher in some places and lower in others. In the context of house prices in a city for example, housing units with the same structural characteristics are valued differently in different areas of a city. This would then imply that the same stimulus across a city such as an increase in living area of a housing unit, would affect the housing cost differently in different areas. For example, a more accurate map of the marginal cost of living area in New York City would be as below - where adding a unit square feet of space in downtown Manhattan would increase the housing price by a lot more than that in Staten Island. 
+Spatial phenomenon exhibit spatial heterogeneity that is, we expect values to be higher in some places and lower in others. In the context of house prices in a city for example, housing units with the same structural characteristics are valued differently in different areas of a city. This would then imply that the same stimulus across a city such as an increase in living area of a housing unit, would affect the housing cost differently in different areas. For example, a more accurate map of the marginal cost of living area in New York City would be as below - where adding a unit square feet of space in downtown Manhattan would increase the housing price by a lot more than it would in Staten Island. 
 
 
 <img src="../images/local_regression_results.PNG" width="800">
@@ -59,5 +59,9 @@ Spatial phenomenon exhibit spatial heterogeneity that is, we expect values to be
 * *Please note, the mapped estimates above are only representational.*
 
 [Next](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Methodology)
+
+[Previous](http://mehak-sachdeva.github.io/MGWR_workshop_book/Html/Patterns-processes)
+
+[Back to the main page](https://mehak-sachdeva.github.io/MGWR_workshop_book/)
 
 ***

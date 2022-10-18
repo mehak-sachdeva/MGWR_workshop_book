@@ -15,7 +15,7 @@
 
 ***
 
-### Please use [this link](http://msachdeva.cartodb.com/api/v2/sql?filename=example_dataset&format=csv&q=SELECT+*+FROM+census_tracts_final+as+example_data) to directly download a csv of the dataset
+### Please use [this link](https://github.com/mehak-sachdeva/Nagoya_University_workshop_2022/blob/main/data/census_tracts_final.csv) to directly download a csv of the dataset
 
 The raw data has been obtained from https://www.kaggle.com/harlfoxem/housesalesprediction.
 The data are cleaned and aggregated to the census tract level for King county, WA to make it smaller in size and manageable for the workshop.
